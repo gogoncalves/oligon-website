@@ -146,7 +146,24 @@ class _LandingPageState extends State<LandingPage> {
                 SliverToBoxAdapter(
                   child: KeyedSubtree(key: _contactKey, child: ContactSection(dict: widget.dict)),
                 ),
-                SliverToBoxAdapter(child: FooterSection(dict: widget.dict)),
+                SliverToBoxAdapter(child: FooterSection(
+                  dict: widget.dict,
+                  onNav: (which) {
+                    if (which == 'top') {
+                      _scrollCtrl.animateTo(0,
+                          duration: const Duration(milliseconds: 700), curve: Curves.easeOutQuart);
+                      return;
+                    }
+                    final keys = {
+                      'services': _servicesKey,
+                      'stack': _stackKey,
+                      'process': _processKey,
+                      'contact': _contactKey,
+                    };
+                    final k = keys[which];
+                    if (k != null) _scrollTo(k);
+                  },
+                )),
               ],
             ),
           ),
@@ -1260,7 +1277,8 @@ class _Input extends StatelessWidget {
 
 class FooterSection extends StatelessWidget {
   final Map<String, String> dict;
-  const FooterSection({super.key, required this.dict});
+  final ValueChanged<String> onNav;
+  const FooterSection({super.key, required this.dict, required this.onNav});
 
   @override
   Widget build(BuildContext context) {
@@ -1291,39 +1309,95 @@ class FooterSection extends StatelessWidget {
   }
 
   List<Widget> _cols(Map<String, String> d) => [
+        // Coluna 1: brand · clicável (volta ao topo)
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () => onNav('top'),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const _Brand(),
+                const SizedBox(height: 12),
+                Text(d['footer.tag']!, style: AppText.body.copyWith(color: AppColors.text3, fontSize: 14)),
+              ],
+            ),
+          ),
+        ),
+        // Coluna 2: links de navegação · todos clicáveis
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const _Brand(),
-            const SizedBox(height: 12),
-            Text(d['footer.tag']!, style: AppText.body.copyWith(color: AppColors.text3, fontSize: 14)),
+            _FooterLink(d['nav.services']!, onTap: () => onNav('services')),
+            const SizedBox(height: 8),
+            _FooterLink(d['nav.stack']!, onTap: () => onNav('stack')),
+            const SizedBox(height: 8),
+            _FooterLink(d['nav.process']!, onTap: () => onNav('process')),
+            const SizedBox(height: 8),
+            _FooterLink(d['nav.contact']!, onTap: () => onNav('contact')),
           ],
         ),
+        // Coluna 3: contato · email clicável + GitHub link
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(d['nav.services']!, style: AppText.body.copyWith(color: AppColors.text2, fontSize: 14)),
-            const SizedBox(height: 8),
-            Text(d['nav.stack']!, style: AppText.body.copyWith(color: AppColors.text2, fontSize: 14)),
-            const SizedBox(height: 8),
-            Text(d['nav.process']!, style: AppText.body.copyWith(color: AppColors.text2, fontSize: 14)),
-            const SizedBox(height: 8),
-            Text(d['nav.contact']!, style: AppText.body.copyWith(color: AppColors.text2, fontSize: 14)),
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InkWell(
+            _FooterLink(
+              'contact@oligontech.com',
+              mono: true,
+              accent: true,
               onTap: () => launchUrl(Uri.parse('mailto:contact@oligontech.com')),
-              child: Text('contact@oligontech.com',
-                  style: AppText.mono.copyWith(color: AppColors.accent, fontSize: 14)),
             ),
             const SizedBox(height: 8),
+            _FooterLink(
+              'github.com/gogoncalves',
+              mono: true,
+              onTap: () => launchUrl(Uri.parse('https://github.com/gogoncalves'), mode: LaunchMode.externalApplication),
+            ),
+            const SizedBox(height: 12),
             Text(d['footer.copy']!, style: AppText.body.copyWith(color: AppColors.text3, fontSize: 13)),
           ],
         ),
       ];
+}
+
+class _FooterLink extends StatefulWidget {
+  final String label;
+  final VoidCallback onTap;
+  final bool mono;
+  final bool accent;
+  const _FooterLink(this.label, {required this.onTap, this.mono = false, this.accent = false});
+
+  @override
+  State<_FooterLink> createState() => _FooterLinkState();
+}
+
+class _FooterLinkState extends State<_FooterLink> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final base = widget.mono ? AppText.mono : AppText.body;
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedDefaultTextStyle(
+          duration: const Duration(milliseconds: 150),
+          style: base.copyWith(
+            fontSize: 14,
+            color: widget.accent
+                ? AppColors.accent
+                : (_hover ? AppColors.text : AppColors.text2),
+            decoration: _hover && !widget.accent ? TextDecoration.underline : null,
+            decorationColor: AppColors.text2,
+          ),
+          child: Text(widget.label),
+        ),
+      ),
+    );
+  }
 }
 
 // ────────────────────────────────────────────────────────────────────────────
