@@ -1,15 +1,14 @@
-# Firebase
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+.idea/
+*.iml
 .firebase/
 firebase-debug.log
-firebase-debug.*.log
-
-# Dev
 .DS_Store
+public_html_backup/
 node_modules/
-.env
-.env.local
-
-# Editors
-.vscode/
-.idea/
-*.swp

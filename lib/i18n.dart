@@ -1,9 +1,16 @@
-// Oligon · simple i18n. Vanilla JS, no framework.
+// Static i18n maps. PT default, EN secondary.
+// Tags suportadas em valores:
+//   <grad>texto</grad>  → renderizado com gradient (ShaderMask)
+//   <m>texto</m>        → texto muted (cinza)
 
-window.translations = {
-  pt: {
+class I18n {
+  static const Map<String, Map<String, String>> dict = {
+    'pt': _pt,
+    'en': _en,
+  };
+
+  static const _pt = {
     'meta.title': 'Oligon Technology · Engenharia de software sob medida',
-    'meta.description': 'Oligon Technology constrói software, agentes de IA e produtos digitais sob medida. Engenharia sênior, stack moderna, resultado real.',
 
     'nav.services': 'Serviços',
     'nav.stack': 'Stack',
@@ -11,12 +18,16 @@ window.translations = {
     'nav.contact': 'Contato',
     'nav.cta': 'Vamos conversar',
 
-    'hero.title': 'Software sob medida<br>para times<br><span class="grad">ambiciosos</span>.',
+    'hero.title.line1': 'Software sob medida',
+    'hero.title.line2': 'para times',
+    'hero.title.line3': '<grad>ambiciosos</grad>.',
     'hero.lead': 'Construímos produtos, sistemas de IA e plataformas de engenharia em produção. Time sênior, sem abstrações, código que é seu.',
     'hero.ctaPrimary': 'Iniciar um projeto',
     'hero.ctaSecondary': 'Ver serviços',
 
-    'manifesto.text': 'Não vendemos <span class="muted">"transformação digital"</span>.<br>Entregamos <span class="grad">software</span> que ganha o lugar dele.',
+    'manifesto.line1': 'Não vendemos <m>"transformação digital"</m>.',
+    'manifesto.line2': 'Entregamos software que ganha o lugar dele.',
+    'manifesto.line2.hl': 'software',
 
     'services.kicker': 'Serviços',
     'services.title': 'Engenharia, ponta a ponta.',
@@ -32,10 +43,10 @@ window.translations = {
     'svc5.title': 'Consultoria técnica',
     'svc5.desc': 'Architecture review, escolha de stack, due diligence, hiring. Opiniões afiadas, sem buzzword.',
     'svc6.title': 'Engenharia contínua',
-    'svc6.desc': 'Squad embarcado ou modelo retainer pra produtos de longo prazo. Backlog real, cadência real, SLAs claros.',
+    'svc6.desc': 'Squad embarcado ou modelo retainer. Backlog real, cadência real, SLAs claros.',
 
     'stack.kicker': 'Stack',
-    'stack.title': 'Tech que <span class="grad">colocamos em produção</span>.',
+    'stack.title': 'Tech que <grad>colocamos em produção</grad>.',
     'stack.sub': 'Sem religião com tools. Escolhemos pelo problema, dominamos cada uma o suficiente pra entregar com confiança.',
     'stack.cat1': 'Frontend',
     'stack.cat2': 'Mobile',
@@ -46,7 +57,7 @@ window.translations = {
     'stack.cat7': 'IA & agentes',
 
     'process.kicker': 'Processo',
-    'process.title': 'Da ideia ao <span class="grad">produção</span>.',
+    'process.title': 'Da ideia ao <grad>produção</grad>.',
     'process.s1.title': 'Discovery',
     'process.s1.desc': 'Conversa inicial gratuita. Entendemos o problema, escopo e critérios de sucesso.',
     'process.s1.time': '1–2 sessões · grátis',
@@ -74,10 +85,10 @@ window.translations = {
 
     'form.error': '⚠ Preencha os campos obrigatórios',
     'form.opening': '✓ Abrindo seu cliente de email...',
-  },
-  en: {
+  };
+
+  static const _en = {
     'meta.title': 'Oligon Technology · Custom software engineering',
-    'meta.description': 'Oligon Technology builds custom software, AI agents and digital products. Senior engineers, modern stack, real outcomes.',
 
     'nav.services': 'Services',
     'nav.stack': 'Stack',
@@ -85,12 +96,16 @@ window.translations = {
     'nav.contact': 'Contact',
     'nav.cta': 'Talk to us',
 
-    'hero.title': 'Custom software<br>for ambitious<br><span class="grad">teams</span>.',
-    'hero.lead': 'We build production-grade products, AI systems and engineering platforms. Senior team, no abstractions, code you own.',
+    'hero.title.line1': 'Custom software',
+    'hero.title.line2': 'for ambitious',
+    'hero.title.line3': '<grad>teams</grad>.',
+    'hero.lead': "We build production-grade products, AI systems and engineering platforms. Senior team, no abstractions, code you own.",
     'hero.ctaPrimary': 'Start a project',
     'hero.ctaSecondary': 'See services',
 
-    'manifesto.text': 'We don\'t sell <span class="muted">"digital transformation"</span>.<br>We <span class="grad">ship software</span> that earns its place.',
+    'manifesto.line1': 'We don\'t sell <m>"digital transformation"</m>.',
+    'manifesto.line2': 'We ship software that earns its place.',
+    'manifesto.line2.hl': 'software',
 
     'services.kicker': 'Services',
     'services.title': 'Engineering, end-to-end.',
@@ -106,11 +121,11 @@ window.translations = {
     'svc5.title': 'Technical advisory',
     'svc5.desc': 'Architecture review, stack selection, tech due diligence, hiring assessments. Sharp opinions, no buzzwords.',
     'svc6.title': 'Continuous engineering',
-    'svc6.desc': 'Embedded squads or retainer model for long-running products. Real backlog, real shipping cadence, clear SLAs.',
+    'svc6.desc': 'Embedded squads or retainer model. Real backlog, real shipping cadence, clear SLAs.',
 
     'stack.kicker': 'Stack',
-    'stack.title': 'Tech we <span class="grad">ship to production</span>.',
-    'stack.sub': 'No religion about tools. We pick by problem, master each enough to ship with confidence.',
+    'stack.title': 'Tech we <grad>ship to production</grad>.',
+    'stack.sub': "No religion about tools. We pick by problem, master each enough to ship with confidence.",
     'stack.cat1': 'Frontend',
     'stack.cat2': 'Mobile',
     'stack.cat3': 'Backend',
@@ -120,7 +135,7 @@ window.translations = {
     'stack.cat7': 'AI & agents',
 
     'process.kicker': 'Process',
-    'process.title': 'From idea to <span class="grad">shipped</span>.',
+    'process.title': 'From idea to <grad>shipped</grad>.',
     'process.s1.title': 'Discovery',
     'process.s1.desc': 'Free initial conversation. We understand the problem, scope, and success criteria.',
     'process.s1.time': '1–2 sessions · free',
@@ -135,7 +150,7 @@ window.translations = {
     'process.s4.time': 'Recurring or one-shot',
 
     'cta.title': 'Got something to build?',
-    'cta.desc': 'Tell us what you have in mind. The first conversation is on us. No commitment, no auto-proposal.',
+    'cta.desc': "Tell us what you have in mind. The first conversation is on us. No commitment, no auto-proposal.",
     'cta.namePlaceholder': 'Name',
     'cta.emailPlaceholder': 'email@company.com',
     'cta.companyPlaceholder': 'Company (optional)',
@@ -148,61 +163,5 @@ window.translations = {
 
     'form.error': '⚠ Required fields',
     'form.opening': '✓ Opening your email client...',
-  }
-};
-
-const SUPPORTED = ['pt', 'en'];
-const DEFAULT_LANG = 'pt';
-const STORAGE_KEY = 'oligon-lang';
-
-function detectLang() {
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored && SUPPORTED.includes(stored)) return stored;
-  const nav = (navigator.language || '').toLowerCase().slice(0, 2);
-  return SUPPORTED.includes(nav) ? nav : DEFAULT_LANG;
+  };
 }
-
-function applyLang(lang) {
-  if (!SUPPORTED.includes(lang)) lang = DEFAULT_LANG;
-  const dict = window.translations[lang];
-
-  document.documentElement.lang = (lang === 'pt' ? 'pt-BR' : 'en');
-
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (dict[key] !== undefined) el.textContent = dict[key];
-  });
-  document.querySelectorAll('[data-i18n-html]').forEach(el => {
-    const key = el.getAttribute('data-i18n-html');
-    if (dict[key] !== undefined) el.innerHTML = dict[key];
-  });
-  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
-    const spec = el.getAttribute('data-i18n-attr');
-    spec.split(',').forEach(pair => {
-      const [attr, key] = pair.split(':').map(s => s.trim());
-      if (dict[key] !== undefined) el.setAttribute(attr, dict[key]);
-    });
-  });
-
-  if (dict['meta.title']) document.title = dict['meta.title'];
-  const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc && dict['meta.description']) metaDesc.setAttribute('content', dict['meta.description']);
-
-  localStorage.setItem(STORAGE_KEY, lang);
-
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.lang === lang);
-  });
-  document.documentElement.setAttribute('data-lang', lang);
-}
-
-function initLangSwitcher() {
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', () => applyLang(btn.dataset.lang));
-  });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  applyLang(detectLang());
-  initLangSwitcher();
-});
