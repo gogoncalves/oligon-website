@@ -1,4 +1,4 @@
-// Oligon Tech · site interactions
+// Oligon Technology · site interactions
 
 // 1) Header scroll state · adiciona classe .scrolled depois de 16px
 (() => {

@@ -1,6 +1,6 @@
-# Oligon Tech — Website
+# Oligon Technology — Website
 
-Landing institucional da Oligon Tech, software house brasileira.
+Landing institucional da Oligon Technology, software house brasileira.
 
 🌐 Produção: https://oligontech.com
 🔥 Firebase Hosting: https://oligon.web.app
