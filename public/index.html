@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0A0A0A">
 <title>Oligon Technology · Engenharia de software sob medida</title>
-<meta name="description" content="Oligon Technology · Software house brasileira especializada em desenvolvimento sob encomenda, consultoria em TI, web e mobile. Construímos produtos digitais que escalam.">
+<meta name="description" content="Oligon Technology · Software house brasileira especializada em desenvolvimento sob encomenda, consultoria em TI, web e mobile.">
 
 <meta property="og:title" content="Oligon Technology · Engenharia de software sob medida">
 <meta property="og:description" content="Construímos software sob medida que cresce com o seu negócio.">
@@ -37,12 +37,18 @@
       <span class="brand-name">Oligon<span class="brand-tech">.tech</span></span>
     </a>
     <nav>
-      <a href="#servicos">Serviços</a>
-      <a href="#stack">Stack</a>
-      <a href="#processo">Processo</a>
-      <a href="#contato">Contato</a>
+      <a href="#servicos" data-i18n="nav.services">Serviços</a>
+      <a href="#stack" data-i18n="nav.stack">Stack</a>
+      <a href="#processo" data-i18n="nav.process">Processo</a>
+      <a href="#contato" data-i18n="nav.contact">Contato</a>
     </nav>
-    <a href="#contato" class="btn btn-sm">Falar com a gente →</a>
+    <div class="header-right">
+      <div class="lang-switcher" role="group" aria-label="Language selector">
+        <button class="lang-btn" data-lang="pt" type="button">PT</button>
+        <button class="lang-btn" data-lang="en" type="button">EN</button>
+      </div>
+      <a href="#contato" class="btn btn-sm" data-i18n="nav.cta">Falar com a gente →</a>
+    </div>
   </div>
 </header>
 
@@ -50,35 +56,35 @@
 <section id="top" class="hero">
   <div class="container">
     <div class="hero-tag">
-      <span class="dot"></span> Software house · São Paulo, Brasil
+      <span class="dot"></span> <span data-i18n="hero.tag">Software house · São Paulo, Brasil</span>
     </div>
-    <h1 class="hero-title">
+    <h1 class="hero-title" data-i18n-html="hero.title">
       Software <span class="grad">sob medida</span><br>
       pra negócios que <span class="grad-2">crescem</span>.
     </h1>
-    <p class="hero-lead">
+    <p class="hero-lead" data-i18n="hero.lead">
       Somos uma software house brasileira que constrói produtos digitais (web, mobile e
       sistemas internos) com engenharia rigorosa e foco em resultado de negócio.
     </p>
     <div class="hero-cta">
       <a href="#contato" class="btn btn-primary">
-        Conversar sobre seu projeto
+        <span data-i18n="hero.ctaPrimary">Conversar sobre seu projeto</span>
         <span aria-hidden="true">→</span>
       </a>
-      <a href="#servicos" class="btn btn-ghost">Ver serviços</a>
+      <a href="#servicos" class="btn btn-ghost" data-i18n="hero.ctaSecondary">Ver serviços</a>
     </div>
     <div class="hero-meta">
       <div class="meta-item">
-        <div class="meta-num">100%</div>
-        <div class="meta-lbl">Código próprio<br>sem white label</div>
+        <div class="meta-num" data-i18n="hero.meta1.num">100%</div>
+        <div class="meta-lbl" data-i18n-html="hero.meta1.lbl">Código próprio<br>sem white label</div>
       </div>
       <div class="meta-item">
-        <div class="meta-num">CNPJ</div>
-        <div class="meta-lbl">Empresa formal<br>NF emitida</div>
+        <div class="meta-num" data-i18n="hero.meta2.num">CNPJ</div>
+        <div class="meta-lbl" data-i18n-html="hero.meta2.lbl">Empresa formal<br>NF emitida</div>
       </div>
       <div class="meta-item">
-        <div class="meta-num">Brasil</div>
-        <div class="meta-lbl">Time local<br>fuso, idioma, cultura</div>
+        <div class="meta-num" data-i18n="hero.meta3.num">Brasil</div>
+        <div class="meta-lbl" data-i18n-html="hero.meta3.lbl">Time local<br>fuso, idioma, cultura</div>
       </div>
     </div>
   </div>
@@ -88,9 +94,9 @@
 <section id="servicos" class="section">
   <div class="container">
     <div class="section-head">
-      <div class="kicker">O que fazemos</div>
-      <h2>Serviços de engenharia <span class="grad">de ponta a ponta</span></h2>
-      <p class="section-sub">
+      <div class="kicker" data-i18n="services.kicker">O que fazemos</div>
+      <h2 data-i18n-html="services.title">Serviços de engenharia <span class="grad">de ponta a ponta</span></h2>
+      <p class="section-sub" data-i18n="services.sub">
         De ideia em guardanapo a produto rodando em produção.
         Cada engagement é desenhado pra resolver um problema concreto.
       </p>
@@ -100,15 +106,15 @@
         <div class="service-icon" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
         </div>
-        <h3>Desenvolvimento sob encomenda</h3>
-        <p>
+        <h3 data-i18n="svc1.title">Desenvolvimento sob encomenda</h3>
+        <p data-i18n="svc1.desc">
           Web apps, APIs, integrações, dashboards internos. Stack moderna, arquitetura
           escalável, deploy contínuo. Você fica com o código.
         </p>
         <ul class="service-bullets">
-          <li>Frontend (React, Vue, Flutter Web)</li>
-          <li>Backend (Node, Python, Go)</li>
-          <li>Cloud (GCP, AWS, Firebase)</li>
+          <li data-i18n="svc1.b1">Frontend (React, Vue, Flutter Web)</li>
+          <li data-i18n="svc1.b2">Backend (Node, Python, Go)</li>
+          <li data-i18n="svc1.b3">Cloud (GCP, AWS, Firebase)</li>
         </ul>
       </article>
 
@@ -116,15 +122,15 @@
         <div class="service-icon" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
         </div>
-        <h3>Aplicativos mobile</h3>
-        <p>
+        <h3 data-i18n="svc2.title">Aplicativos mobile</h3>
+        <p data-i18n="svc2.desc">
           iOS e Android nativos ou cross-platform. Do MVP ao app em escala. Flutter
           quando faz sentido, Swift/Kotlin quando precisa.
         </p>
         <ul class="service-bullets">
-          <li>Flutter, React Native</li>
-          <li>Integração StoreKit, Play Billing, Push</li>
-          <li>App Store + Play Console submission</li>
+          <li data-i18n="svc2.b1">Flutter, React Native</li>
+          <li data-i18n="svc2.b2">Integração StoreKit, Play Billing, Push</li>
+          <li data-i18n="svc2.b3">App Store + Play Console submission</li>
         </ul>
       </article>
 
@@ -132,15 +138,15 @@
         <div class="service-icon" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
         </div>
-        <h3>Consultoria em TI</h3>
-        <p>
+        <h3 data-i18n="svc3.title">Consultoria em TI</h3>
+        <p data-i18n="svc3.desc">
           Audit de sistema legado, escolha de stack, design de arquitetura, code review.
           Decidimos com você. Não vendemos opinião como produto.
         </p>
         <ul class="service-bullets">
-          <li>Diagnóstico técnico</li>
-          <li>Roadmap de modernização</li>
-          <li>Hiring assessments</li>
+          <li data-i18n="svc3.b1">Diagnóstico técnico</li>
+          <li data-i18n="svc3.b2">Roadmap de modernização</li>
+          <li data-i18n="svc3.b3">Hiring assessments</li>
         </ul>
       </article>
 
@@ -148,15 +154,15 @@
         <div class="service-icon" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
         </div>
-        <h3>Web design & desenvolvimento</h3>
-        <p>
+        <h3 data-i18n="svc4.title">Web design & desenvolvimento</h3>
+        <p data-i18n="svc4.desc">
           Sites institucionais, landing pages, e-commerce. Design próprio, performance
           como prioridade, SEO incluído. Hospedagem e manutenção opcional.
         </p>
         <ul class="service-bullets">
-          <li>Design system custom</li>
-          <li>Performance (Lighthouse 95+)</li>
-          <li>CMS quando precisa</li>
+          <li data-i18n="svc4.b1">Design system custom</li>
+          <li data-i18n="svc4.b2">Performance (Lighthouse 95+)</li>
+          <li data-i18n="svc4.b3">CMS quando precisa</li>
         </ul>
       </article>
 
@@ -164,15 +170,15 @@
         <div class="service-icon" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
         </div>
-        <h3>Hospedagem & infra</h3>
-        <p>
+        <h3 data-i18n="svc5.title">Hospedagem & infra</h3>
+        <p data-i18n="svc5.desc">
           Configuração e operação de cloud, banco de dados, CDN, backup. SLA real,
           monitoramento 24/7, alertas proativos.
         </p>
         <ul class="service-bullets">
-          <li>GCP / AWS / Firebase / Vercel</li>
-          <li>Postgres, MongoDB, Redis</li>
-          <li>Observability (Datadog, Sentry)</li>
+          <li data-i18n="svc5.b1">GCP / AWS / Firebase / Vercel</li>
+          <li data-i18n="svc5.b2">Postgres, MongoDB, Redis</li>
+          <li data-i18n="svc5.b3">Observability (Datadog, Sentry)</li>
         </ul>
       </article>
 
@@ -180,15 +186,15 @@
         <div class="service-icon" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
         </div>
-        <h3>Suporte técnico</h3>
-        <p>
+        <h3 data-i18n="svc6.title">Suporte técnico</h3>
+        <p data-i18n="svc6.desc">
           Suporte recorrente pra produtos em produção: bugs, evoluções, novas features.
           Contratos mensais com horas dedicadas e SLA de resposta claro.
         </p>
         <ul class="service-bullets">
-          <li>Pacotes de horas mensais</li>
-          <li>SLA &lt; 4h em P1</li>
-          <li>Documentação inclusa</li>
+          <li data-i18n="svc6.b1">Pacotes de horas mensais</li>
+          <li data-i18n-html="svc6.b2">SLA &lt; 4h em P1</li>
+          <li data-i18n="svc6.b3">Documentação inclusa</li>
         </ul>
       </article>
     </div>
@@ -199,23 +205,23 @@
 <section id="stack" class="section section-alt">
   <div class="container">
     <div class="section-head">
-      <div class="kicker">Stack</div>
-      <h2>Tecnologias que <span class="grad">já entregamos</span> em produção</h2>
-      <p class="section-sub">
+      <div class="kicker" data-i18n="stack.kicker">Stack</div>
+      <h2 data-i18n-html="stack.title">Tecnologias que <span class="grad">já entregamos</span> em produção</h2>
+      <p class="section-sub" data-i18n="stack.sub">
         Não temos religião com tools. Escolhemos pelo problema,
         e dominamos cada uma o suficiente pra colocar em prod com confiança.
       </p>
     </div>
     <div class="stack-grid">
       <div class="stack-cat">
-        <div class="cat-name">Frontend</div>
+        <div class="cat-name" data-i18n="stack.cat1">Frontend</div>
         <div class="cat-tags">
           <span>React</span><span>Next.js</span><span>Angular</span><span>Vue</span>
           <span>Flutter Web</span><span>TypeScript</span><span>Tailwind</span>
         </div>
       </div>
       <div class="stack-cat">
-        <div class="cat-name">Mobile</div>
+        <div class="cat-name" data-i18n="stack.cat2">Mobile</div>
         <div class="cat-tags">
           <span>iOS</span><span>Android</span><span>Flutter</span>
           <span>React Native</span><span>Swift</span><span>Kotlin</span>
@@ -223,7 +229,7 @@
         </div>
       </div>
       <div class="stack-cat">
-        <div class="cat-name">Backend</div>
+        <div class="cat-name" data-i18n="stack.cat3">Backend</div>
         <div class="cat-tags">
           <span>Java</span><span>Spring Boot</span><span>Kotlin</span>
           <span>C# / .NET</span><span>Node.js</span><span>NestJS</span>
@@ -231,7 +237,7 @@
         </div>
       </div>
       <div class="stack-cat">
-        <div class="cat-name">Banco & dados</div>
+        <div class="cat-name" data-i18n="stack.cat4">Banco & dados</div>
         <div class="cat-tags">
           <span>PostgreSQL</span><span>Aurora</span><span>Cassandra</span>
           <span>Firestore</span><span>MongoDB</span>
@@ -239,7 +245,7 @@
         </div>
       </div>
       <div class="stack-cat">
-        <div class="cat-name">Cloud & infra</div>
+        <div class="cat-name" data-i18n="stack.cat5">Cloud & infra</div>
         <div class="cat-tags">
           <span>AWS</span><span>Azure</span><span>GCP</span>
           <span>Firebase</span><span>Kubernetes</span><span>Docker</span>
@@ -247,14 +253,14 @@
         </div>
       </div>
       <div class="stack-cat">
-        <div class="cat-name">Eventos & observability</div>
+        <div class="cat-name" data-i18n="stack.cat6">Eventos & observability</div>
         <div class="cat-tags">
           <span>Kafka</span><span>RabbitMQ</span><span>Pub/Sub</span>
           <span>Datadog</span><span>Sentry</span>
         </div>
       </div>
       <div class="stack-cat">
-        <div class="cat-name">IA & dados</div>
+        <div class="cat-name" data-i18n="stack.cat7">IA & dados</div>
         <div class="cat-tags">
           <span>OpenAI</span><span>Gemini</span><span>Claude</span>
           <span>LangChain</span><span>Pinecone</span>
@@ -268,45 +274,45 @@
 <section id="processo" class="section">
   <div class="container">
     <div class="section-head">
-      <div class="kicker">Como trabalhamos</div>
-      <h2>Engagement <span class="grad">em 4 etapas</span></h2>
+      <div class="kicker" data-i18n="process.kicker">Como trabalhamos</div>
+      <h2 data-i18n-html="process.title">Engagement <span class="grad">em 4 etapas</span></h2>
     </div>
     <div class="process">
       <div class="proc-step">
         <div class="proc-num">01</div>
-        <h3>Discovery</h3>
-        <p>
+        <h3 data-i18n="process.s1.title">Discovery</h3>
+        <p data-i18n="process.s1.desc">
           Conversa inicial gratuita. Entendemos o problema, definimos escopo e
           critérios de sucesso. Sem proposta genérica.
         </p>
-        <div class="proc-time">1-2 sessões · grátis</div>
+        <div class="proc-time" data-i18n="process.s1.time">1-2 sessões · grátis</div>
       </div>
       <div class="proc-step">
         <div class="proc-num">02</div>
-        <h3>Proposta técnica</h3>
-        <p>
+        <h3 data-i18n="process.s2.title">Proposta técnica</h3>
+        <p data-i18n="process.s2.desc">
           Documento com arquitetura, stack escolhido, milestones, prazo e investimento.
           Tudo escrito pra você decidir com calma.
         </p>
-        <div class="proc-time">3-5 dias úteis</div>
+        <div class="proc-time" data-i18n="process.s2.time">3-5 dias úteis</div>
       </div>
       <div class="proc-step">
         <div class="proc-num">03</div>
-        <h3>Sprint de execução</h3>
-        <p>
+        <h3 data-i18n="process.s3.title">Sprint de execução</h3>
+        <p data-i18n="process.s3.desc">
           Sprints curtas com demo semanal. Você acompanha o progresso real, não slide
           de PowerPoint. Código entregue em repo seu.
         </p>
-        <div class="proc-time">2-12 semanas conforme escopo</div>
+        <div class="proc-time" data-i18n="process.s3.time">2-12 semanas conforme escopo</div>
       </div>
       <div class="proc-step">
         <div class="proc-num">04</div>
-        <h3>Handover & suporte</h3>
-        <p>
+        <h3 data-i18n="process.s4.title">Handover & suporte</h3>
+        <p data-i18n="process.s4.desc">
           Entrega com documentação técnica, treinamento do seu time (se quiser),
           e contrato opcional de suporte mensal.
         </p>
-        <div class="proc-time">Recorrente ou one-shot</div>
+        <div class="proc-time" data-i18n="process.s4.time">Recorrente ou one-shot</div>
       </div>
     </div>
   </div>
@@ -317,34 +323,34 @@
   <div class="container">
     <div class="about-grid">
       <div>
-        <div class="kicker">Sobre</div>
-        <h2>Engenharia <span class="grad">honesta</span>,<br>sem buzzword.</h2>
-        <p class="about-text">
+        <div class="kicker" data-i18n="about.kicker">Sobre</div>
+        <h2 data-i18n-html="about.title">Engenharia <span class="grad">honesta</span>,<br>sem buzzword.</h2>
+        <p class="about-text" data-i18n="about.p1">
           A Oligon Technology nasceu da convicção de que software bom é resultado de processo bom,
           não de hype. Trabalhamos com clientes que valorizam código limpo, arquitetura
           pensada e prazo cumprido.
         </p>
-        <p class="about-text">
+        <p class="about-text" data-i18n="about.p2">
           Não somos a maior software house do Brasil. Somos a que você quer ter ao seu
           lado quando o produto importa.
         </p>
       </div>
       <div class="about-stats">
         <div class="stat">
-          <div class="stat-val">CNPJ ativo</div>
-          <div class="stat-lbl">Brasil</div>
+          <div class="stat-val" data-i18n="about.s1.val">CNPJ ativo</div>
+          <div class="stat-lbl" data-i18n="about.s1.lbl">Brasil</div>
         </div>
         <div class="stat">
-          <div class="stat-val">NF-e</div>
-          <div class="stat-lbl">Emissão direta</div>
+          <div class="stat-val" data-i18n="about.s2.val">NF-e</div>
+          <div class="stat-lbl" data-i18n="about.s2.lbl">Emissão direta</div>
         </div>
         <div class="stat">
-          <div class="stat-val">PJ → PJ</div>
-          <div class="stat-lbl">Modelo padrão</div>
+          <div class="stat-val" data-i18n="about.s3.val">PJ → PJ</div>
+          <div class="stat-lbl" data-i18n="about.s3.lbl">Modelo padrão</div>
         </div>
         <div class="stat">
-          <div class="stat-val">Seu código</div>
-          <div class="stat-lbl">Sempre</div>
+          <div class="stat-val" data-i18n="about.s4.val">Seu código</div>
+          <div class="stat-lbl" data-i18n="about.s4.lbl">Sempre</div>
         </div>
       </div>
     </div>
@@ -355,26 +361,26 @@
 <section id="contato" class="cta">
   <div class="container">
     <div class="cta-card">
-      <h2>Tem um projeto em mente?</h2>
-      <p>
+      <h2 data-i18n="cta.title">Tem um projeto em mente?</h2>
+      <p data-i18n="cta.desc">
         Conta pra gente o que você quer construir. A primeira conversa é por nossa conta:
         sem compromisso, sem proposta automática.
       </p>
       <form class="contact-form" onsubmit="return submitContact(event)">
         <div class="form-row">
-          <input type="text" name="name" placeholder="Seu nome" required>
-          <input type="email" name="email" placeholder="email@empresa.com" required>
+          <input type="text" name="name" data-i18n-attr="placeholder:cta.namePlaceholder" placeholder="Seu nome" required>
+          <input type="email" name="email" data-i18n-attr="placeholder:cta.emailPlaceholder" placeholder="email@empresa.com" required>
         </div>
-        <input type="text" name="company" placeholder="Empresa (opcional)">
-        <textarea name="message" placeholder="Conta brevemente o que você quer construir..." rows="4" required></textarea>
+        <input type="text" name="company" data-i18n-attr="placeholder:cta.companyPlaceholder" placeholder="Empresa (opcional)">
+        <textarea name="message" data-i18n-attr="placeholder:cta.messagePlaceholder" placeholder="Conta brevemente o que você quer construir..." rows="4" required></textarea>
         <button type="submit" class="btn btn-primary btn-full">
-          Enviar mensagem
+          <span data-i18n="cta.submit">Enviar mensagem</span>
           <span aria-hidden="true">→</span>
         </button>
         <div id="formMsg" class="form-msg"></div>
       </form>
       <div class="cta-alt">
-        Prefere email direto? <a href="mailto:contato@oligontech.com">contato@oligontech.com</a>
+        <span data-i18n="cta.altPrefix">Prefere email direto?</span> <a href="mailto:contato@oligontech.com">contato@oligontech.com</a>
       </div>
     </div>
   </div>
@@ -388,21 +394,22 @@
         <span class="brand-mark">◆</span>
         <span class="brand-name">Oligon<span class="brand-tech">.tech</span></span>
       </div>
-      <p class="footer-tag">Engenharia de software sob medida.</p>
+      <p class="footer-tag" data-i18n="footer.tag">Engenharia de software sob medida.</p>
     </div>
     <div class="footer-links">
-      <a href="#servicos">Serviços</a>
-      <a href="#stack">Stack</a>
-      <a href="#processo">Processo</a>
-      <a href="#contato">Contato</a>
+      <a href="#servicos" data-i18n="nav.services">Serviços</a>
+      <a href="#stack" data-i18n="nav.stack">Stack</a>
+      <a href="#processo" data-i18n="nav.process">Processo</a>
+      <a href="#contato" data-i18n="nav.contact">Contato</a>
     </div>
     <div class="footer-meta">
       <a href="mailto:contato@oligontech.com">contato@oligontech.com</a>
-      <span class="footer-copy">© 2026 Oligon Technology</span>
+      <span class="footer-copy" data-i18n="footer.copy">© 2026 Oligon Technology</span>
     </div>
   </div>
 </footer>
 
+<script src="/i18n.js" defer></script>
 <script src="/main.js" defer></script>
 </body>
 </html>
