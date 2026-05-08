@@ -1,6 +1,6 @@
-// Oligon Tech — site interactions
+// Oligon Tech · site interactions
 
-// 1) Header scroll state — adiciona classe .scrolled depois de 16px
+// 1) Header scroll state · adiciona classe .scrolled depois de 16px
 (() => {
   const header = document.querySelector('header');
   if (!header) return;
@@ -12,7 +12,7 @@
   onScroll();
 })();
 
-// 2) Reveal-on-scroll com IntersectionObserver — sem depender de framework.
+// 2) Reveal-on-scroll com IntersectionObserver · sem depender de framework.
 //    Adiciona .reveal automaticamente em cards/sections e .visible quando
 //    entram no viewport.
 (() => {
@@ -31,7 +31,7 @@
 })();
 
 // 3) Submit do form de contato.
-//    Sem backend ainda — abre cliente de email com mailto: pré-preenchido.
+//    Sem backend ainda · abre cliente de email com mailto: pré-preenchido.
 //    Quando tiver backend (Cloud Function/SendGrid), trocar por fetch().
 function submitContact(event) {
   event.preventDefault();

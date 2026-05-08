@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNS Hostinger — oligontech.com</title>
+<style>
+  body { background: #0A0A0A; color: #FFF; font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif; line-height: 1.6; max-width: 920px; margin: 0 auto; padding: 40px 24px; }
+  h1 { font-size: 32px; background: linear-gradient(135deg, #00FFA3, #7C3AED); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  h2 { margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  h3 { margin: 20px 0 8px; color: #00FFA3; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  th { background: rgba(255,255,255,0.03); font-size: 12px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+  td code { background: #1F1F1F; padding: 4px 8px; border-radius: 4px; color: #00FFA3; font-family: "SF Mono", Monaco, monospace; font-size: 13px; word-break: break-all; }
+  .ok { background: rgba(0,255,163,0.08); border: 1px solid #00FFA3; padding: 12px 16px; border-radius: 8px; margin: 16px 0; }
+  .warn { background: rgba(255, 178, 0, 0.1); border: 1px solid #FFB200; padding: 12px 16px; border-radius: 8px; margin: 16px 0; }
+  .copy-row { display: flex; gap: 8px; align-items: center; background: #1F1F1F; padding: 8px 12px; border-radius: 6px; margin: 4px 0; }
+  .copy-row code { flex: 1; background: none; padding: 0; }
+  .copy-btn { background: #2D2D2D; border: none; color: #FFF; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+  .copy-btn.copied { background: #00FFA3; color: #0A0A0A; }
+  ol, ul { padding-left: 22px; }
+  li { margin: 6px 0; color: rgba(255,255,255,0.85); }
+  a { color: #00FFA3; }
+  pre { background: #1F1F1F; padding: 12px 16px; border-radius: 8px; overflow-x: auto; }
+  pre code { color: #FFF; background: none; }
+</style>
+</head>
+<body>
+
+<h1>oligontech.com — DNS Hostinger</h1>
+
+<div class="ok">
+<strong>✓ Já feito:</strong>
+<ul>
+  <li>Repositório GitHub criado: <a href="https://github.com/gogoncalves/oligon-website" target="_blank">github.com/gogoncalves/oligon-website</a></li>
+  <li>Projeto Firebase criado: <strong>oligon</strong></li>
+  <li>Site deployado: <a href="https://oligon.web.app" target="_blank">https://oligon.web.app</a></li>
+  <li>Custom domain registrado no Firebase: <code>oligontech.com</code></li>
+</ul>
+</div>
+
+<div class="warn">
+<strong>⚠ Falta você:</strong> adicionar 2 registros DNS no Hostinger. ~5 min.
+</div>
+
+<h2>📋 Os 2 registros</h2>
+
+<h3>1. Registro A</h3>
+<table>
+  <tr><th>Campo</th><th>Valor</th></tr>
+  <tr><td>Tipo</td><td><code>A</code></td></tr>
+  <tr><td>Nome / Host</td><td><code>@</code></td></tr>
+  <tr><td>Aponta para</td><td><div class="copy-row"><code id="ip">199.36.158.100</code><button class="copy-btn" onclick="cp('ip', this)">Copiar</button></div></td></tr>
+  <tr><td>TTL</td><td><code>14400</code></td></tr>
+</table>
+
+<h3>2. Registro TXT (challenge SSL)</h3>
+<table>
+  <tr><th>Campo</th><th>Valor</th></tr>
+  <tr><td>Tipo</td><td><code>TXT</code></td></tr>
+  <tr><td>Nome / Host</td><td><code>_acme-challenge</code></td></tr>
+  <tr><td>Valor</td><td><div class="copy-row"><code id="acme">VHiLopbwdxf3dDh9xmBb30CfbqBF1sNrjIysmFuwAhQ</code><button class="copy-btn" onclick="cp('acme', this)">Copiar</button></div></td></tr>
+  <tr><td>TTL</td><td><code>14400</code></td></tr>
+</table>
+
+<h2>🛠 No hPanel</h2>
+
+<ol>
+  <li>Login em <a href="https://hpanel.hostinger.com" target="_blank">hpanel.hostinger.com</a></li>
+  <li>Domínios → <code>oligontech.com</code> → <em>DNS / Servidores de nomes</em> → <em>Editor de zona DNS</em></li>
+  <li><strong>Delete qualquer A record existente apontando pra IPs da Hostinger</strong> (geralmente <code>2.57.91.91</code> ou similar). Aprendemos isso no setup do ticnut.com — Hostinger coloca por padrão e conflita.</li>
+  <li>Adicione os 2 registros acima</li>
+  <li>(Opcional, recomendado) Adicione CNAME pra <code>www</code>:
+    <ul>
+      <li>Tipo: <code>CNAME</code></li>
+      <li>Nome: <code>www</code></li>
+      <li>Aponta para: <code>oligon.web.app</code></li>
+      <li>TTL: <code>14400</code></li>
+    </ul>
+  </li>
+</ol>
+
+<h2>⏱ Aguardar (30 min - 1h)</h2>
+<ol>
+  <li>DNS propaga em 5-30 min</li>
+  <li>Firebase verifica e emite SSL Let's Encrypt</li>
+  <li><a href="https://oligontech.com" target="_blank">https://oligontech.com</a> no ar com SSL</li>
+</ol>
+
+<h2>✅ Validar</h2>
+<pre><code>dig oligontech.com +short
+# Deve retornar: 199.36.158.100
+
+dig _acme-challenge.oligontech.com TXT +short
+# Deve retornar: "VHiLopbwdxf3dDh9xmBb30CfbqBF1sNrjIysmFuwAhQ"
+
+curl -I https://oligontech.com
+# Deve retornar HTTP/2 200 (após cert SSL emitir)</code></pre>
+
+<script>
+function cp(id, btn) {
+  const t = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(t).then(() => {
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

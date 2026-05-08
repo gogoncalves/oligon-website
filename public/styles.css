@@ -1,5 +1,5 @@
 /* ==========================================================
-   Oligon Tech — landing styles
+   Oligon Tech · landing styles
    ========================================================== */
 
 :root {
@@ -11,7 +11,7 @@
   --text: #FFFFFF;
   --text-2: rgba(255, 255, 255, 0.65);
   --text-3: rgba(255, 255, 255, 0.40);
-  --accent: #00FFA3;          /* mint cyan — tech vibrante */
+  --accent: #00FFA3;          /* mint cyan · tech vibrante */
   --accent-2: #7C3AED;        /* purple */
   --accent-glow: rgba(0, 255, 163, 0.15);
   --max-w: 1200px;
