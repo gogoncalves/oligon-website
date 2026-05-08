@@ -1,0 +1,15 @@
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
+# Dev
+.DS_Store
+node_modules/
+.env
+.env.local
+
+# Editors
+.vscode/
+.idea/
+*.swp
