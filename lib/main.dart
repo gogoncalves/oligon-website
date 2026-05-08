@@ -30,11 +30,17 @@ class _OligonAppState extends State<OligonApp> {
   Locale _locale = _detectInitialLocale();
 
   static Locale _detectInitialLocale() {
+    // 1) Preferência salva no localStorage
     final stored = storage.readLang();
-    if (stored == 'pt' || stored == 'en') return Locale(stored!);
+    if (stored != null && I18n.supported.contains(stored)) {
+      return Locale(stored);
+    }
+    // 2) Idioma do navegador (primeiros 2 chars: pt-BR → pt, en-US → en, etc)
     final nav = storage.navigatorLanguage().toLowerCase();
-    if (nav.startsWith('en')) return const Locale('en');
-    return const Locale('pt');
+    final code = nav.length >= 2 ? nav.substring(0, 2) : '';
+    if (I18n.supported.contains(code)) return Locale(code);
+    // 3) Fallback inglês (audiência internacional default), pt em última se nada bater
+    return const Locale('en');
   }
 
   void _setLocale(Locale locale) {
@@ -445,7 +451,7 @@ class LangSwitcher extends StatelessWidget {
       padding: const EdgeInsets.all(2),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: ['pt', 'en'].map((lang) {
+        children: I18n.supported.map((lang) {
           final active = current == lang;
           return MouseRegion(
             cursor: SystemMouseCursors.click,

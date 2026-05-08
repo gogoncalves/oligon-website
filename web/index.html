@@ -1,44 +1,141 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0A0A0A">
+  <meta name="theme-color" content="#08080C">
+  <meta name="color-scheme" content="dark">
 
-  <title>Oligon Technology · Custom software engineering</title>
-  <meta name="description" content="Oligon Technology builds custom software, AI agents and digital products. Senior engineers, modern stack, real outcomes.">
+  <title>Oligon Technology · Custom software, AI agents and digital products</title>
+  <meta name="description" content="Senior engineering team building custom software, AI agents and digital products that ship. Flutter, Next.js, Go, Python, AI/LLM integrations.">
+  <meta name="keywords" content="software development, AI agents, custom software, Flutter, mobile apps, Next.js, Go, Python, LLM, machine learning, software house, engineering">
+  <meta name="author" content="Oligon Technology">
+  <meta name="application-name" content="Oligon Technology">
+  <meta name="generator" content="Flutter">
+  <link rel="canonical" href="https://oligontech.com">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Oligon Technology · Custom software engineering">
-  <meta property="og:description" content="Senior engineers building custom software, AI agents and digital products that ship.">
+  <!-- Robots -->
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="googlebot" content="index, follow">
+
+  <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+  <meta property="og:title" content="Oligon Technology · Custom software that ships">
+  <meta property="og:description" content="Senior engineers building custom software, AI agents and digital products. Flutter, Next.js, Go, Python, AI/LLM.">
   <meta property="og:url" content="https://oligontech.com">
+  <meta property="og:site_name" content="Oligon Technology">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="pt_BR">
+  <meta property="og:locale:alternate" content="es_ES">
+  <meta property="og:locale:alternate" content="fr_FR">
+  <meta property="og:image" content="https://oligontech.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://oligontech.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Oligon Technology · Custom software that ships">
+
+  <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Oligon Technology · Custom software that ships">
+  <meta name="twitter:description" content="Senior engineers building custom software, AI agents and digital products.">
+  <meta name="twitter:image" content="https://oligontech.com/og-image.png">
+  <meta name="twitter:image:alt" content="Oligon Technology">
 
   <!-- iOS / PWA -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Oligon">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
-  <link rel="icon" type="image/png" href="favicon.png"/>
   <link rel="manifest" href="manifest.json">
 
-  <!-- Preconnect a CDN do CanvasKit do Google (zero custo de banda pra nós) -->
+  <!-- Performance hints -->
   <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
+  <!-- Structured data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Oligon Technology",
+    "alternateName": "Oligon",
+    "url": "https://oligontech.com",
+    "logo": "https://oligontech.com/icons/Icon-512.png",
+    "image": "https://oligontech.com/og-image.png",
+    "description": "Senior engineering team building custom software, AI agents and digital products.",
+    "foundingDate": "2025",
+    "email": "contact@oligontech.com",
+    "sameAs": [
+      "https://github.com/gogoncalves"
+    ],
+    "knowsAbout": [
+      "Software Engineering",
+      "AI Agents",
+      "Large Language Models",
+      "Flutter",
+      "Next.js",
+      "Go",
+      "Python",
+      "Cloud Infrastructure",
+      "Mobile Development",
+      "Web Development"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Oligon Technology",
+    "url": "https://oligontech.com",
+    "inLanguage": ["en", "pt-BR", "es", "fr"],
+    "publisher": {
+      "@type": "Organization",
+      "name": "Oligon Technology",
+      "url": "https://oligontech.com"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Oligon Technology",
+    "url": "https://oligontech.com",
+    "image": "https://oligontech.com/og-image.png",
+    "priceRange": "$$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "BR"
+    },
+    "serviceType": [
+      "Custom Software Development",
+      "AI Agent Development",
+      "Mobile App Development",
+      "Web Application Development",
+      "Cloud Infrastructure"
+    ]
+  }
+  </script>
+
   <style>
-    /* Splash inline (não bloqueia render do bundle) */
-    html, body { margin:0; padding:0; background:#0A0A0A; color:#fff; height:100%; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+    html, body { margin:0; padding:0; background:#08080C; color:#fff; height:100%; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
     #splash {
       position:fixed; inset:0; display:flex; flex-direction:column;
       align-items:center; justify-content:center; gap:16px;
-      background:#0A0A0A; z-index:9999;
+      background:#08080C; z-index:9999;
       transition: opacity .4s ease;
     }
     #splash.hidden { opacity:0; pointer-events:none; }
@@ -59,13 +156,19 @@
   </style>
 </head>
 <body>
+  <noscript>
+    <div style="padding:40px 24px;text-align:center;">
+      <h1>Oligon Technology</h1>
+      <p>This site requires JavaScript. Contact us at <a href="mailto:contact@oligontech.com" style="color:#00FFA3">contact@oligontech.com</a>.</p>
+    </div>
+  </noscript>
+
   <div id="splash">
     <div class="splash-logo">Oligon.tech</div>
     <div class="splash-pulse"></div>
   </div>
 
   <script>
-    // Esconde splash quando Flutter renderizar
     window.addEventListener('flutter-first-frame', () => {
       const s = document.getElementById('splash');
       if (s) {

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#08080C"/>
+      <stop offset="100%" stop-color="#1A1A28"/>
+    </linearGradient>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00FFA3"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="20%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#00FFA3" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#00FFA3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="85%" cy="80%" r="50%">
+      <stop offset="0%" stop-color="#7C3AED" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#7C3AED" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow1)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+
+  <!-- Logo mark -->
+  <g transform="translate(80, 80)">
+    <path d="M40 8 L72 24 L72 56 L40 72 L8 56 L8 24 Z"
+          fill="none" stroke="url(#grad)" stroke-width="4" stroke-linejoin="round"/>
+    <circle cx="40" cy="40" r="10" fill="none" stroke="#00FFA3" stroke-width="3.5"/>
+    <line x1="50" y1="40" x2="60" y2="40" stroke="#7C3AED" stroke-width="3.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Brand name -->
+  <text x="170" y="125" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="32" font-weight="800" fill="#FFFFFF" letter-spacing="-1">Oligon Technology</text>
+
+  <!-- Headline -->
+  <text x="80" y="320" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="76" font-weight="900" fill="#FFFFFF" letter-spacing="-3">Custom software</text>
+  <text x="80" y="404" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="76" font-weight="900" fill="url(#grad)" letter-spacing="-3">that ships.</text>
+
+  <!-- Tagline -->
+  <text x="80" y="478" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="26" font-weight="500" fill="#FFFFFFA0" letter-spacing="-0.5">Senior engineers · AI agents · digital products</text>
+
+  <!-- URL bar -->
+  <g transform="translate(80, 530)">
+    <rect width="240" height="44" rx="22" fill="#0F0F18" stroke="#00FFA3" stroke-width="1.5"/>
+    <text x="22" y="29" font-family="'JetBrains Mono', 'SF Mono', monospace" font-size="16" font-weight="600" fill="#00FFA3" letter-spacing="0.5">oligontech.com</text>
+  </g>
+
+  <!-- Tags -->
+  <g transform="translate(950, 84)" opacity="0.6">
+    <rect x="0" y="0" width="170" height="32" rx="16" fill="#0F0F18" stroke="#FFFFFF20"/>
+    <text x="20" y="22" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="600" fill="#FFFFFF" letter-spacing="0.5">SOFTWARE HOUSE</text>
+  </g>
+
+  <!-- Stack chips bottom right -->
+  <g transform="translate(800, 530)" opacity="0.85">
+    <rect x="0" y="0" width="76" height="34" rx="8" fill="#00FFA315" stroke="#00FFA340"/>
+    <text x="14" y="22" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#00FFA3">Flutter</text>
+    <rect x="86" y="0" width="60" height="34" rx="8" fill="#7C3AED15" stroke="#7C3AED40"/>
+    <text x="100" y="22" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#A78BFA">Next</text>
+    <rect x="156" y="0" width="50" height="34" rx="8" fill="#F43F5E15" stroke="#F43F5E40"/>
+    <text x="170" y="22" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#FB7185">Go</text>
+    <rect x="216" y="0" width="50" height="34" rx="8" fill="#FFB20015" stroke="#FFB20040"/>
+    <text x="232" y="22" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#FFB200">AI</text>
+  </g>
+</svg>

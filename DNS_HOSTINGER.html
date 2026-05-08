@@ -3,108 +3,221 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DNS Hostinger — oligontech.com</title>
+<title>DNS Hostinger — oligontech.com → Firebase</title>
 <style>
-  body { background: #0A0A0A; color: #FFF; font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif; line-height: 1.6; max-width: 920px; margin: 0 auto; padding: 40px 24px; }
-  h1 { font-size: 32px; background: linear-gradient(135deg, #00FFA3, #7C3AED); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  h2 { margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-  h3 { margin: 20px 0 8px; color: #00FFA3; }
-  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
-  th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); }
-  th { background: rgba(255,255,255,0.03); font-size: 12px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
-  td code { background: #1F1F1F; padding: 4px 8px; border-radius: 4px; color: #00FFA3; font-family: "SF Mono", Monaco, monospace; font-size: 13px; word-break: break-all; }
-  .ok { background: rgba(0,255,163,0.08); border: 1px solid #00FFA3; padding: 12px 16px; border-radius: 8px; margin: 16px 0; }
-  .warn { background: rgba(255, 178, 0, 0.1); border: 1px solid #FFB200; padding: 12px 16px; border-radius: 8px; margin: 16px 0; }
-  .copy-row { display: flex; gap: 8px; align-items: center; background: #1F1F1F; padding: 8px 12px; border-radius: 6px; margin: 4px 0; }
-  .copy-row code { flex: 1; background: none; padding: 0; }
-  .copy-btn { background: #2D2D2D; border: none; color: #FFF; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
-  .copy-btn.copied { background: #00FFA3; color: #0A0A0A; }
-  ol, ul { padding-left: 22px; }
-  li { margin: 6px 0; color: rgba(255,255,255,0.85); }
-  a { color: #00FFA3; }
-  pre { background: #1F1F1F; padding: 12px 16px; border-radius: 8px; overflow-x: auto; }
-  pre code { color: #FFF; background: none; }
+  :root {
+    --bg: #08080C;
+    --bg2: #0F0F18;
+    --bg3: #1A1A28;
+    --fg: #FFFFFF;
+    --fg2: rgba(255,255,255,0.65);
+    --fg3: rgba(255,255,255,0.45);
+    --border: rgba(255,255,255,0.08);
+    --accent: #00FFA3;
+    --violet: #7C3AED;
+    --rose: #F43F5E;
+    --warn: #FFB200;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--fg);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    line-height: 1.65; max-width: 940px; margin: 0 auto; padding: 56px 28px 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    background:
+      radial-gradient(600px circle at 10% -10%, rgba(0, 255, 163, 0.08), transparent 60%),
+      radial-gradient(500px circle at 90% 110%, rgba(124, 58, 237, 0.07), transparent 60%);
+  }
+  .kicker { font-family: 'SF Mono', Monaco, monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600; }
+  h1 {
+    font-size: 44px; font-weight: 800; margin: 12px 0 14px; letter-spacing: -1.5px; line-height: 1.05;
+    background: linear-gradient(135deg, var(--accent), var(--violet));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .lead { color: var(--fg2); font-size: 17px; max-width: 720px; margin-bottom: 28px; }
+  h2 {
+    margin: 48px 0 16px; padding-bottom: 12px;
+    border-bottom: 1px solid var(--border); font-size: 22px; font-weight: 700; letter-spacing: -0.4px;
+    display: flex; align-items: baseline; gap: 14px;
+  }
+  h2 .num {
+    font-family: 'SF Mono', Monaco, monospace; font-size: 13px; color: var(--accent); font-weight: 600;
+  }
+  h3 { margin: 22px 0 10px; color: var(--fg); font-size: 15px; font-weight: 700; }
+  p { color: var(--fg2); margin-bottom: 12px; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  th { background: var(--bg3); font-size: 11px; text-transform: uppercase; color: var(--fg3); font-family: 'SF Mono', Monaco, monospace; letter-spacing: 0.08em; font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+  td { color: var(--fg2); }
+  td code { background: var(--bg3); border: 1px solid var(--border); padding: 4px 8px; border-radius: 5px; color: var(--accent); font-family: 'SF Mono', Monaco, monospace; font-size: 12.5px; word-break: break-all; }
+  td.tag-add { color: var(--accent); font-weight: 700; }
+  td.tag-rm { color: var(--rose); font-weight: 700; }
+  td.tag-keep { color: var(--warn); font-weight: 700; }
+
+  .callout { padding: 16px 18px; border-radius: 12px; margin: 16px 0; border: 1px solid var(--border); background: var(--bg2); border-left-width: 3px; }
+  .callout strong { color: var(--fg); }
+  .callout.ok { border-left-color: var(--accent); }
+  .callout.warn { border-left-color: var(--warn); }
+  .callout.info { border-left-color: var(--violet); }
+  .callout.ok strong { color: var(--accent); }
+  .callout.warn strong { color: var(--warn); }
+  .callout.info strong { color: var(--violet); }
+
+  .copy-row { display: flex; gap: 8px; align-items: center; background: var(--bg3); border: 1px solid var(--border); padding: 8px 10px; border-radius: 8px; margin: 6px 0; }
+  .copy-row code { flex: 1; background: none; padding: 0; border: none; color: var(--fg); font-family: 'SF Mono', Monaco, monospace; font-size: 13px; word-break: break-all; }
+  .copy-btn { background: rgba(0, 255, 163, 0.1); border: 1px solid rgba(0, 255, 163, 0.3); color: var(--accent); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700; font-family: 'SF Mono', Monaco, monospace; letter-spacing: 0.05em; transition: all 0.15s; flex-shrink: 0; }
+  .copy-btn:hover { background: rgba(0, 255, 163, 0.2); }
+  .copy-btn.copied { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+  ol, ul { padding-left: 24px; margin: 12px 0; }
+  li { margin: 8px 0; color: var(--fg2); }
+  li strong { color: var(--fg); }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(0, 255, 163, 0.3); }
+  a:hover { border-color: var(--accent); }
+  pre { background: var(--bg3); border: 1px solid var(--border); padding: 14px 18px; border-radius: 10px; overflow-x: auto; margin: 12px 0; font-size: 13px; }
+  pre code { color: var(--fg); background: none; padding: 0; border: none; font-family: 'SF Mono', Monaco, monospace; }
+
+  .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+  @media (max-width: 600px) { .status-grid { grid-template-columns: 1fr; } }
+  .status { padding: 14px 16px; border-radius: 10px; background: var(--bg2); border: 1px solid var(--border); }
+  .status .label { font-family: 'SF Mono', Monaco, monospace; font-size: 10px; color: var(--fg3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; font-weight: 600; }
+  .status .val { font-size: 15px; font-weight: 700; }
+  .status .val.ok { color: var(--accent); }
+  .status .val.bad { color: var(--rose); }
+  .status .val.warn { color: var(--warn); }
+
+  .footer-note { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--fg3); font-family: 'SF Mono', Monaco, monospace; font-size: 12px; text-align: center; letter-spacing: 0.05em; }
 </style>
 </head>
 <body>
 
-<h1>oligontech.com — DNS Hostinger</h1>
+<div class="kicker">DNS · Hostinger → Firebase Hosting</div>
+<h1>oligontech.com</h1>
+<p class="lead">Apontar o domínio comprado no Hostinger para o site Flutter Web hospedado no Firebase (project <code>oligon</code>). Apex + <code>www</code> · SSL automático via Let's Encrypt.</p>
 
-<div class="ok">
-<strong>✓ Já feito:</strong>
+<!-- Status atual -->
+<h2><span class="num">00</span> Status atual</h2>
+<div class="status-grid">
+  <div class="status">
+    <div class="label">Firebase site</div>
+    <div class="val ok">oligon.web.app · ativo</div>
+  </div>
+  <div class="status">
+    <div class="label">Custom domains criados</div>
+    <div class="val ok">oligontech.com · www.oligontech.com</div>
+  </div>
+  <div class="status">
+    <div class="label">Ownership (TXT)</div>
+    <div class="val ok">Validado ✓</div>
+  </div>
+  <div class="status">
+    <div class="label">DNS / SSL</div>
+    <div class="val warn">Aguardando atualização no Hostinger</div>
+  </div>
+</div>
+
+<!-- Step 1 -->
+<h2><span class="num">01</span> Acessar Hostinger</h2>
+<ol>
+  <li>Login em <a href="https://hpanel.hostinger.com/" target="_blank">hpanel.hostinger.com</a></li>
+  <li>Menu lateral · <strong>Domínios</strong> → <strong>oligontech.com</strong> → <strong>Gerenciar</strong></li>
+  <li>Aba <strong>DNS / Nameservers</strong> · seção <strong>Gerenciar registros DNS</strong></li>
+</ol>
+<div class="callout info">
+  <p><strong>Importante</strong> · Os nameservers devem estar nos do Hostinger (<code>ns1.dns-parking.com</code>, <code>ns2.dns-parking.com</code> ou similares). Se estiverem em outro provedor, mude lá ao invés de aqui.</p>
+</div>
+
+<!-- Step 2 -->
+<h2><span class="num">02</span> Apagar registros antigos</h2>
+<p>Esses registros estão apontando pro Hostinger e precisam sair:</p>
+<table>
+  <thead><tr><th style="width: 80px">Ação</th><th style="width: 80px">Tipo</th><th>Nome</th><th>Valor atual</th></tr></thead>
+  <tbody>
+    <tr><td class="tag-rm">DELETAR</td><td><code>A</code></td><td><code>@</code></td><td><code>2.57.91.91</code></td></tr>
+    <tr><td class="tag-rm">DELETAR</td><td><code>CNAME</code></td><td><code>www</code></td><td><code>oligontech.com</code></td></tr>
+  </tbody>
+</table>
+
+<!-- Step 3 -->
+<h2><span class="num">03</span> Adicionar registros do Firebase</h2>
+<p><strong>3.1 · Apex (raiz)</strong> · domínio <code>oligontech.com</code></p>
+<table>
+  <thead><tr><th style="width: 80px">Ação</th><th style="width: 80px">Tipo</th><th>Nome</th><th>Valor</th><th style="width: 70px">TTL</th></tr></thead>
+  <tbody>
+    <tr><td class="tag-add">ADD</td><td><code>A</code></td><td><code>@</code></td><td><code>199.36.158.100</code></td><td>14400</td></tr>
+    <tr><td class="tag-add">ADD</td><td><code>TXT</code></td><td><code>@</code></td><td><code>hosting-site=oligon</code></td><td>14400</td></tr>
+    <tr><td class="tag-add">ADD</td><td><code>TXT</code></td><td><code>_acme-challenge</code></td><td><code>VHiLopbwdxf3dDh9xmBb30CfbqBF1sNrjIysmFuwAhQ</code></td><td>14400</td></tr>
+  </tbody>
+</table>
+
+<p style="margin-top: 18px"><strong>3.2 · Subdomínio</strong> · <code>www.oligontech.com</code></p>
+<table>
+  <thead><tr><th style="width: 80px">Ação</th><th style="width: 80px">Tipo</th><th>Nome</th><th>Valor</th><th style="width: 70px">TTL</th></tr></thead>
+  <tbody>
+    <tr><td class="tag-add">ADD</td><td><code>CNAME</code></td><td><code>www</code></td><td><code>oligon.web.app</code></td><td>14400</td></tr>
+  </tbody>
+</table>
+
+<h3>Copiar valores</h3>
+<div class="copy-row"><code>199.36.158.100</code><button class="copy-btn" onclick="copyText(this, '199.36.158.100')">COPIAR</button></div>
+<div class="copy-row"><code>hosting-site=oligon</code><button class="copy-btn" onclick="copyText(this, 'hosting-site=oligon')">COPIAR</button></div>
+<div class="copy-row"><code>VHiLopbwdxf3dDh9xmBb30CfbqBF1sNrjIysmFuwAhQ</code><button class="copy-btn" onclick="copyText(this, 'VHiLopbwdxf3dDh9xmBb30CfbqBF1sNrjIysmFuwAhQ')">COPIAR</button></div>
+<div class="copy-row"><code>oligon.web.app</code><button class="copy-btn" onclick="copyText(this, 'oligon.web.app')">COPIAR</button></div>
+<div class="copy-row"><code>_acme-challenge</code><button class="copy-btn" onclick="copyText(this, '_acme-challenge')">COPIAR</button></div>
+
+<!-- Step 4 -->
+<h2><span class="num">04</span> Manter (NÃO mexer)</h2>
+<p>Esses registros já estão certos · não apague:</p>
+<table>
+  <thead><tr><th style="width: 80px">Ação</th><th style="width: 80px">Tipo</th><th>Nome</th><th>Valor</th><th>Por quê</th></tr></thead>
+  <tbody>
+    <tr><td class="tag-keep">MANTER</td><td><code>TXT</code></td><td><code>@</code></td><td><code>google-site-verification=GrPpTcz8BJ08FfkDtrlBKyHkvWUQKPcqg2k_aBboIFI</code></td><td>Firebase ownership</td></tr>
+    <tr><td class="tag-keep">MANTER</td><td><code>TXT</code></td><td><code>@</code></td><td><code>v=spf1 include:_spf.mail.hostinger.com ~all</code></td><td>SPF do email</td></tr>
+    <tr><td class="tag-keep">MANTER</td><td><code>MX</code></td><td><code>@</code></td><td>(qualquer registro <code>mx*.hostinger.com</code>)</td><td>Email Hostinger</td></tr>
+  </tbody>
+</table>
+<div class="callout warn">
+  <p><strong>Email · contact@oligontech.com</strong> · se você está usando o email do Hostinger, NÃO apague os MX/SPF/DKIM. Apague apenas o <code>A</code> e <code>CNAME</code> listados no passo 02.</p>
+</div>
+
+<!-- Step 5 -->
+<h2><span class="num">05</span> Validação</h2>
+<p>Depois de salvar no Hostinger, propagação leva <strong>5–30 min</strong> (até 48h em casos raros). Como verificar:</p>
+<pre><code># Apex deve responder com IP do Firebase
+dig +short oligontech.com
+# saída esperada: 199.36.158.100
+
+# www deve resolver pro Firebase
+dig +short www.oligontech.com
+# saída esperada: oligon.web.app  + IPs do Firebase
+
+# TXT verification
+dig +short TXT oligontech.com
+# deve incluir: "hosting-site=oligon"</code></pre>
+
+<p>Quando o DNS propagar, o Firebase emite SSL automaticamente em ~5min. Daí <code>https://oligontech.com</code> e <code>https://www.oligontech.com</code> ficam ao ar com cadeado verde.</p>
+
+<!-- Step 6 -->
+<h2><span class="num">06</span> Pós-setup (opcional)</h2>
 <ul>
-  <li>Repositório GitHub criado: <a href="https://github.com/gogoncalves/oligon-website" target="_blank">github.com/gogoncalves/oligon-website</a></li>
-  <li>Projeto Firebase criado: <strong>oligon</strong></li>
-  <li>Site deployado: <a href="https://oligon.web.app" target="_blank">https://oligon.web.app</a></li>
-  <li>Custom domain registrado no Firebase: <code>oligontech.com</code></li>
+  <li><strong>Redirect www → apex</strong> · Já está configurado por padrão no Firebase. Acessar <code>www.oligontech.com</code> redireciona pra <code>oligontech.com</code>.</li>
+  <li><strong>Force HTTPS</strong> · Firebase força HTTPS automaticamente, sem ação necessária.</li>
+  <li><strong>Atualizar DMARC</strong> (opcional) · Adicionar <code>TXT _dmarc → v=DMARC1; p=quarantine; rua=mailto:contact@oligontech.com</code> pra reforçar entrega de email.</li>
 </ul>
-</div>
 
-<div class="warn">
-<strong>⚠ Falta você:</strong> adicionar 2 registros DNS no Hostinger. ~5 min.
-</div>
-
-<h2>📋 Os 2 registros</h2>
-
-<h3>1. Registro A</h3>
-<table>
-  <tr><th>Campo</th><th>Valor</th></tr>
-  <tr><td>Tipo</td><td><code>A</code></td></tr>
-  <tr><td>Nome / Host</td><td><code>@</code></td></tr>
-  <tr><td>Aponta para</td><td><div class="copy-row"><code id="ip">199.36.158.100</code><button class="copy-btn" onclick="cp('ip', this)">Copiar</button></div></td></tr>
-  <tr><td>TTL</td><td><code>14400</code></td></tr>
-</table>
-
-<h3>2. Registro TXT (challenge SSL)</h3>
-<table>
-  <tr><th>Campo</th><th>Valor</th></tr>
-  <tr><td>Tipo</td><td><code>TXT</code></td></tr>
-  <tr><td>Nome / Host</td><td><code>_acme-challenge</code></td></tr>
-  <tr><td>Valor</td><td><div class="copy-row"><code id="acme">VHiLopbwdxf3dDh9xmBb30CfbqBF1sNrjIysmFuwAhQ</code><button class="copy-btn" onclick="cp('acme', this)">Copiar</button></div></td></tr>
-  <tr><td>TTL</td><td><code>14400</code></td></tr>
-</table>
-
-<h2>🛠 No hPanel</h2>
-
-<ol>
-  <li>Login em <a href="https://hpanel.hostinger.com" target="_blank">hpanel.hostinger.com</a></li>
-  <li>Domínios → <code>oligontech.com</code> → <em>DNS / Servidores de nomes</em> → <em>Editor de zona DNS</em></li>
-  <li><strong>Delete qualquer A record existente apontando pra IPs da Hostinger</strong> (geralmente <code>2.57.91.91</code> ou similar). Aprendemos isso no setup do ticnut.com — Hostinger coloca por padrão e conflita.</li>
-  <li>Adicione os 2 registros acima</li>
-  <li>(Opcional, recomendado) Adicione CNAME pra <code>www</code>:
-    <ul>
-      <li>Tipo: <code>CNAME</code></li>
-      <li>Nome: <code>www</code></li>
-      <li>Aponta para: <code>oligon.web.app</code></li>
-      <li>TTL: <code>14400</code></li>
-    </ul>
-  </li>
-</ol>
-
-<h2>⏱ Aguardar (30 min - 1h)</h2>
-<ol>
-  <li>DNS propaga em 5-30 min</li>
-  <li>Firebase verifica e emite SSL Let's Encrypt</li>
-  <li><a href="https://oligontech.com" target="_blank">https://oligontech.com</a> no ar com SSL</li>
-</ol>
-
-<h2>✅ Validar</h2>
-<pre><code>dig oligontech.com +short
-# Deve retornar: 199.36.158.100
-
-dig _acme-challenge.oligontech.com TXT +short
-# Deve retornar: "VHiLopbwdxf3dDh9xmBb30CfbqBF1sNrjIysmFuwAhQ"
-
-curl -I https://oligontech.com
-# Deve retornar HTTP/2 200 (após cert SSL emitir)</code></pre>
+<div class="footer-note">Gerado · 2026-05-08 · oligon-website · Firebase project: oligon</div>
 
 <script>
-function cp(id, btn) {
-  const t = document.getElementById(id).innerText;
+function copyText(btn, t) {
   navigator.clipboard.writeText(t).then(() => {
-    btn.textContent = 'Copiado!';
+    const orig = btn.textContent;
+    btn.textContent = 'OK';
     btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1400);
   });
 }
 </script>
