@@ -61,8 +61,10 @@
 
   <!-- Performance hints -->
   <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preload" href="main.dart.wasm" as="fetch" type="application/wasm" crossorigin>
+  <link rel="modulepreload" href="main.dart.mjs">
 
   <!-- Structured data (JSON-LD) -->
   <script type="application/ld+json">
@@ -157,10 +159,73 @@
 </head>
 <body>
   <noscript>
-    <div style="padding:40px 24px;text-align:center;">
-      <h1>Oligon Technology</h1>
-      <p>This site requires JavaScript. Contact us at <a href="mailto:contact@oligontech.com" style="color:#00FFA3">contact@oligontech.com</a>.</p>
-    </div>
+    <style>
+      .seo-fallback { max-width:900px; margin:0 auto; padding:40px 24px 80px; line-height:1.65; }
+      .seo-fallback h1 { font-size:48px; font-weight:800; letter-spacing:-1.5px; margin-bottom:14px; line-height:1.05; }
+      .seo-fallback h1 .grad { background:linear-gradient(135deg,#00FFA3,#7C3AED); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+      .seo-fallback h2 { font-size:28px; font-weight:700; margin:48px 0 16px; letter-spacing:-0.5px; }
+      .seo-fallback h3 { font-size:18px; font-weight:700; margin:24px 0 6px; color:#00FFA3; }
+      .seo-fallback p { color:rgba(255,255,255,0.75); margin-bottom:14px; font-size:16px; }
+      .seo-fallback ul { padding-left:22px; margin:8px 0 18px; }
+      .seo-fallback li { color:rgba(255,255,255,0.75); margin:6px 0; }
+      .seo-fallback a { color:#00FFA3; text-decoration:none; }
+      .seo-fallback a:hover { text-decoration:underline; }
+      .seo-fallback .cta { display:inline-block; padding:12px 22px; background:#00FFA3; color:#08080C; border-radius:100px; font-weight:700; margin:8px 8px 8px 0; }
+      .seo-fallback .meta { color:rgba(255,255,255,0.5); font-size:14px; margin-top:60px; padding-top:24px; border-top:1px solid rgba(255,255,255,0.1); }
+    </style>
+    <main class="seo-fallback">
+      <header>
+        <h1>Oligon Technology · <span class="grad">Custom software that ships</span></h1>
+        <p>Senior engineering team building custom software, AI agents and digital products. Mobile, web, backend and infrastructure — production-grade, end-to-end.</p>
+        <p>
+          <a class="cta" href="mailto:contact@oligontech.com">contact@oligontech.com</a>
+        </p>
+      </header>
+
+      <section>
+        <h2>What we build</h2>
+        <h3>Custom software</h3>
+        <p>End-to-end product engineering: from architecture to deployment. Mobile apps, web platforms, internal tools, marketplaces.</p>
+        <h3>AI agents and LLM integration</h3>
+        <p>Production AI: agents, RAG pipelines, prompt engineering, evals. We've shipped to production on Vertex AI, OpenAI, Anthropic.</p>
+        <h3>Mobile apps · Flutter, iOS, Android</h3>
+        <p>Cross-platform Flutter and native when needed. Apple App Store and Google Play deployment, App Check, in-app purchases.</p>
+        <h3>Web applications</h3>
+        <p>Next.js, React, Flutter Web. PWAs, SSR, edge functions. Performance-first.</p>
+        <h3>Cloud infrastructure</h3>
+        <p>GCP, AWS, Firebase, Cloudflare. Serverless, Kubernetes, observability. Cost-optimized from day one.</p>
+      </section>
+
+      <section>
+        <h2>Stack we work with</h2>
+        <ul>
+          <li><strong>Mobile:</strong> Flutter, Dart, Swift, Kotlin</li>
+          <li><strong>Web:</strong> Next.js, React, TypeScript, Flutter Web</li>
+          <li><strong>Backend:</strong> Go, Python, Node.js, Java, Kotlin</li>
+          <li><strong>AI / ML:</strong> LangChain, Vertex AI, OpenAI, Anthropic, embeddings, RAG, fine-tuning</li>
+          <li><strong>Cloud:</strong> GCP, AWS, Firebase, Cloudflare Workers</li>
+          <li><strong>Data:</strong> PostgreSQL, BigQuery, Firestore, Redis, Kafka</li>
+          <li><strong>Observability:</strong> Datadog, Grafana, Prometheus, OpenTelemetry</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Industries</h2>
+        <ul>
+          <li>Fintech and digital banking</li>
+          <li>Health, fitness and wellness</li>
+          <li>Marketplaces and e-commerce</li>
+          <li>SaaS and B2B platforms</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Get in touch</h2>
+        <p>For new projects, partnership inquiries or just to say hi: <a href="mailto:contact@oligontech.com">contact@oligontech.com</a></p>
+      </section>
+
+      <p class="meta">© 2026 Oligon Technology · Custom software, AI agents, digital products</p>
+    </main>
   </noscript>
 
   <div id="splash">
