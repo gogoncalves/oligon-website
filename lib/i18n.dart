@@ -15,9 +15,20 @@ class I18n {
     'meta.title': 'Oligon Technology · Engenharia de software sob medida',
 
     'nav.services': 'Serviços',
+    'nav.products': 'Produtos',
     'nav.process': 'Processo',
     'nav.contact': 'Contato',
     'nav.cta': 'Vamos conversar',
+
+    'products.kicker': 'Produtos',
+    'products.title': 'Software que <grad>criamos</grad>.',
+    'products.attendari.title': 'Attendari',
+    'products.attendari.tag': 'AI WhatsApp SaaS',
+    'products.attendari.desc': 'Atendente virtual com IA no WhatsApp 24/7 pra pequenos negócios brasileiros. Agenda, cobra sinal Pix, responde clientes. Assinatura mensal R\$ 99 – R\$ 699.',
+    'products.attendari.status': 'Live',
+    'products.attendari.cta': 'attendari.com →',
+    'products.soon.title': 'Mais em construção',
+    'products.soon.desc': 'Outros produtos Oligon em desenvolvimento.',
 
     'hero.title.line1': 'Software sob medida',
     'hero.title.line2': 'para times',
