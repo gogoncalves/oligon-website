@@ -20,6 +20,24 @@
         ]
       },
       {
+        "source": "/main.dart.js",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=300, must-revalidate" }
+        ]
+      },
+      {
+        "source": "/flutter.js",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=300, must-revalidate" }
+        ]
+      },
+      {
+        "source": "/flutter_bootstrap.js",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=300, must-revalidate" }
+        ]
+      },
+      {
         "source": "/manifest.json",
         "headers": [
           { "key": "Cache-Control", "value": "public, max-age=300, must-revalidate" }
@@ -32,7 +50,13 @@
         ]
       },
       {
-        "source": "**/*.@(js|wasm)",
+        "source": "/canvaskit/**",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        ]
+      },
+      {
+        "source": "**/*.@(wasm)",
         "headers": [
           { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
         ]
