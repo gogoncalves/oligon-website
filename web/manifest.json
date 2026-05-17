@@ -1,12 +1,16 @@
 {
-    "name": "oligon_web",
-    "short_name": "oligon_web",
-    "start_url": ".",
+    "name": "Oligon Technology",
+    "short_name": "Oligon",
+    "description": "Senior engineering team building custom software, AI agents and digital products that ship.",
+    "start_url": "/",
+    "scope": "/",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "Oligon Technology landing",
-    "orientation": "portrait-primary",
+    "background_color": "#08080C",
+    "theme_color": "#08080C",
+    "orientation": "any",
+    "lang": "en",
+    "dir": "ltr",
+    "categories": ["business", "productivity", "technology"],
     "prefer_related_applications": false,
     "icons": [
         {

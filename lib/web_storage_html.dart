@@ -8,3 +8,8 @@ void writeLang(String lang) {
 }
 
 String navigatorLanguage() => html.window.navigator.language ?? 'pt';
+
+bool readPrivacyAck() => html.window.localStorage['oligon-privacy-ack'] == '1';
+void writePrivacyAck() {
+  html.window.localStorage['oligon-privacy-ack'] = '1';
+}

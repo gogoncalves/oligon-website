@@ -1,8 +1,9 @@
 // Oligon Technology · landing em Flutter Web.
 // Single-file pra simplicidade. Dogfood: vendemos Flutter, usamos Flutter.
 
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 // dart:html só funciona em web; isolado em arquivo separado pra não quebrar
 // análise em outras plataformas.
@@ -87,11 +88,12 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   final _scrollCtrl = ScrollController();
   final _servicesKey = GlobalKey();
-  final _stackKey = GlobalKey();
+  final _productsKey = GlobalKey();
   final _processKey = GlobalKey();
   final _contactKey = GlobalKey();
 
   bool _scrolled = false;
+  bool _showPrivacy = false;
 
   @override
   void initState() {
@@ -100,6 +102,16 @@ class _LandingPageState extends State<LandingPage> {
       final shouldBe = _scrollCtrl.offset > 12;
       if (shouldBe != _scrolled) setState(() => _scrolled = shouldBe);
     });
+    if (!storage.readPrivacyAck()) {
+      Future.delayed(const Duration(milliseconds: 900), () {
+        if (mounted) setState(() => _showPrivacy = true);
+      });
+    }
+  }
+
+  void _ackPrivacy() {
+    storage.writePrivacyAck();
+    setState(() => _showPrivacy = false);
   }
 
   @override
@@ -133,24 +145,38 @@ class _LandingPageState extends State<LandingPage> {
               controller: _scrollCtrl,
               slivers: [
                 SliverToBoxAdapter(
-                  child: HeroSection(
-                    dict: widget.dict,
-                    onScrollToContact: () => _scrollTo(_contactKey),
-                    onScrollToServices: () => _scrollTo(_servicesKey),
+                  child: _FadeIn(
+                    delay: const Duration(milliseconds: 50),
+                    child: HeroSection(
+                      dict: widget.dict,
+                      onScrollToContact: () => _scrollTo(_contactKey),
+                      onScrollToServices: () => _scrollTo(_servicesKey),
+                    ),
                   ),
                 ),
-                SliverToBoxAdapter(child: ManifestoSection(dict: widget.dict)),
                 SliverToBoxAdapter(
-                  child: KeyedSubtree(key: _servicesKey, child: ServicesSection(dict: widget.dict)),
+                  child: _FadeIn(
+                    delay: const Duration(milliseconds: 200),
+                    child: KeyedSubtree(key: _servicesKey, child: ServicesSection(dict: widget.dict)),
+                  ),
                 ),
                 SliverToBoxAdapter(
-                  child: KeyedSubtree(key: _stackKey, child: StackSection(dict: widget.dict)),
+                  child: _FadeIn(
+                    delay: const Duration(milliseconds: 275),
+                    child: KeyedSubtree(key: _productsKey, child: ProductsSection(dict: widget.dict)),
+                  ),
                 ),
                 SliverToBoxAdapter(
-                  child: KeyedSubtree(key: _processKey, child: ProcessSection(dict: widget.dict)),
+                  child: _FadeIn(
+                    delay: const Duration(milliseconds: 350),
+                    child: KeyedSubtree(key: _processKey, child: ProcessSection(dict: widget.dict)),
+                  ),
                 ),
                 SliverToBoxAdapter(
-                  child: KeyedSubtree(key: _contactKey, child: ContactSection(dict: widget.dict)),
+                  child: _FadeIn(
+                    delay: const Duration(milliseconds: 500),
+                    child: KeyedSubtree(key: _contactKey, child: ContactSection(dict: widget.dict)),
+                  ),
                 ),
                 SliverToBoxAdapter(child: FooterSection(
                   dict: widget.dict,
@@ -162,7 +188,7 @@ class _LandingPageState extends State<LandingPage> {
                     }
                     final keys = {
                       'services': _servicesKey,
-                      'stack': _stackKey,
+                      'products': _productsKey,
                       'process': _processKey,
                       'contact': _contactKey,
                     };
@@ -184,12 +210,20 @@ class _LandingPageState extends State<LandingPage> {
               onNav: (which) {
                 final keys = {
                   'services': _servicesKey,
-                  'stack': _stackKey,
+                  'products': _productsKey,
                   'process': _processKey,
                   'contact': _contactKey,
                 };
                 _scrollTo(keys[which]!);
               },
+            ),
+          ),
+          Positioned(
+            left: 0, right: 0, bottom: 0,
+            child: _PrivacyBanner(
+              visible: _showPrivacy,
+              dict: widget.dict,
+              onOk: _ackPrivacy,
             ),
           ),
         ],
@@ -210,9 +244,9 @@ class AmbientBackground extends StatelessWidget {
     return IgnorePointer(
       child: Stack(
         children: [
-          Positioned(top: -150, left: -200, child: _Blob(size: 600, color: AppColors.accent.withOpacity(0.08))),
-          Positioned(top: 400, right: -150, child: _Blob(size: 500, color: AppColors.accent2.withOpacity(0.08))),
-          Positioned(bottom: 200, left: 300, child: _Blob(size: 400, color: AppColors.accent.withOpacity(0.05))),
+          Positioned(top: -150, left: -200, child: _Blob(size: 600, color: AppColors.accent.withValues(alpha: 0.08))),
+          Positioned(top: 400, right: -150, child: _Blob(size: 500, color: AppColors.accent2.withValues(alpha: 0.08))),
+          Positioned(bottom: 200, left: 300, child: _Blob(size: 400, color: AppColors.accent.withValues(alpha: 0.05))),
         ],
       ),
     );
@@ -230,7 +264,7 @@ class _Blob extends StatelessWidget {
       width: size, height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        gradient: RadialGradient(colors: [color, color.withOpacity(0)]),
+        gradient: RadialGradient(colors: [color, color.withValues(alpha: 0)]),
       ),
     );
   }
@@ -268,19 +302,26 @@ class _HeaderBarState extends State<HeaderBar> {
   @override
   Widget build(BuildContext context) {
     final d = widget.dict;
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      decoration: BoxDecoration(
-        color: AppColors.bg.withOpacity(0.85),
-        border: Border(
-          bottom: BorderSide(
-            color: widget.scrolled ? AppColors.border : Colors.transparent,
-            width: 1,
+    return ClipRect(
+      child: BackdropFilter(
+        filter: widget.scrolled
+            ? ui.ImageFilter.blur(sigmaX: 18, sigmaY: 18)
+            : ui.ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          decoration: BoxDecoration(
+            color: widget.scrolled
+                ? AppColors.bg.withValues(alpha: 0.72)
+                : Colors.transparent,
+            border: Border(
+              bottom: BorderSide(
+                color: widget.scrolled ? AppColors.border : Colors.transparent,
+                width: 1,
+              ),
+            ),
           ),
-        ),
-      ),
-      child: Column(
-        children: [
+          child: Column(
+            children: [
           Center(
             child: Container(
               constraints: const BoxConstraints(maxWidth: 1200),
@@ -292,7 +333,7 @@ class _HeaderBarState extends State<HeaderBar> {
                   if (!widget.isMobile) ...[
                     _NavLink(d['nav.services']!, onTap: () => widget.onNav('services')),
                     const SizedBox(width: 28),
-                    _NavLink(d['nav.stack']!, onTap: () => widget.onNav('stack')),
+                    _NavLink(d['nav.products']!, onTap: () => widget.onNav('products')),
                     const SizedBox(width: 28),
                     _NavLink(d['nav.process']!, onTap: () => widget.onNav('process')),
                     const SizedBox(width: 28),
@@ -317,25 +358,32 @@ class _HeaderBarState extends State<HeaderBar> {
               ),
             ),
           ),
-          if (widget.isMobile && _menuOpen)
-            Container(
-              width: double.infinity,
-              color: AppColors.bg2,
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _NavLink(d['nav.services']!, onTap: () { setState(() => _menuOpen = false); widget.onNav('services'); }),
-                  const SizedBox(height: 16),
-                  _NavLink(d['nav.stack']!, onTap: () { setState(() => _menuOpen = false); widget.onNav('stack'); }),
-                  const SizedBox(height: 16),
-                  _NavLink(d['nav.process']!, onTap: () { setState(() => _menuOpen = false); widget.onNav('process'); }),
-                  const SizedBox(height: 16),
-                  _NavLink(d['nav.contact']!, onTap: () { setState(() => _menuOpen = false); widget.onNav('contact'); }),
-                ],
-              ),
-            ),
-        ],
+              if (widget.isMobile && _menuOpen)
+                Container(
+                  width: double.infinity,
+                  color: AppColors.bg2,
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _NavLink(d['nav.services']!, onTap: () { setState(() => _menuOpen = false); widget.onNav('services'); }),
+                      const SizedBox(height: 18),
+                      _NavLink(d['nav.products']!, onTap: () { setState(() => _menuOpen = false); widget.onNav('products'); }),
+                      const SizedBox(height: 18),
+                      _NavLink(d['nav.process']!, onTap: () { setState(() => _menuOpen = false); widget.onNav('process'); }),
+                      const SizedBox(height: 18),
+                      _NavLink(d['nav.contact']!, onTap: () { setState(() => _menuOpen = false); widget.onNav('contact'); }),
+                      const SizedBox(height: 20),
+                      PrimaryButton(
+                        label: d['nav.cta']!,
+                        onTap: () { setState(() => _menuOpen = false); widget.onNav('contact'); },
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -350,9 +398,15 @@ class _Brand extends StatelessWidget {
       children: [
         ShaderMask(
           shaderCallback: (rect) => AppColors.gradient.createShader(rect),
-          child: const Icon(Icons.diamond_outlined, size: 22, color: Colors.white),
+          child: Container(
+            width: 18, height: 18,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 10),
         RichText(
           text: TextSpan(
             style: AppText.h6.copyWith(letterSpacing: -0.5, color: AppColors.text, fontWeight: FontWeight.w800),
@@ -520,6 +574,7 @@ class HeroSection extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final isMobile = width < 768;
     final titleFontSize = (width * 0.07).clamp(40.0, 88.0);
+    final manifestoFontSize = (width * 0.025).clamp(20.0, 28.0);
 
     return _Container(
       child: Padding(
@@ -550,8 +605,16 @@ class HeroSection extends StatelessWidget {
                 GhostButton(label: dict['hero.ctaSecondary']!, onTap: onScrollToServices),
               ],
             ),
-            const SizedBox(height: 80),
-            const StackMarquee(),
+            const SizedBox(height: 72),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 720),
+              child: _Manifesto(
+                line1: dict['manifesto.line1']!,
+                line2: dict['manifesto.line2']!,
+                highlight: dict['manifesto.line2.hl']!,
+                fontSize: manifestoFontSize,
+              ),
+            ),
           ],
         ),
       ),
@@ -602,99 +665,8 @@ class _GradientTitle extends StatelessWidget {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
-// Marquee
+// MANIFESTO (rendered inside hero)
 // ────────────────────────────────────────────────────────────────────────────
-
-class StackMarquee extends StatefulWidget {
-  const StackMarquee({super.key});
-
-  @override
-  State<StackMarquee> createState() => _StackMarqueeState();
-}
-
-class _StackMarqueeState extends State<StackMarquee> with SingleTickerProviderStateMixin {
-  late final AnimationController _ctrl;
-
-  static const _items = [
-    'Flutter', 'iOS', 'Android', 'React', 'Next.js', 'Angular',
-    'Java', 'Spring Boot', 'Kotlin', '.NET', 'Python', 'FastAPI',
-    'Go', 'Rust', 'Elixir', 'Kafka', 'AWS', 'GCP', 'Azure',
-    'Kubernetes', 'Terraform', 'Datadog', 'OpenAI', 'Anthropic',
-    'Gemini', 'LangChain', 'MCP', 'Vector DB',
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _ctrl = AnimationController(vsync: this, duration: const Duration(seconds: 60))..repeat();
-  }
-
-  @override
-  void dispose() {
-    _ctrl.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRect(
-      child: SizedBox(
-        height: 50,
-        child: AnimatedBuilder(
-          animation: _ctrl,
-          builder: (context, _) {
-            return Transform.translate(
-              offset: Offset(-_ctrl.value * _items.length * 120.0, 0),
-              child: Row(children: [_buildRow(), _buildRow()]),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildRow() {
-    return Row(
-      children: _items.expand((t) => [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(t, style: AppText.mono.copyWith(color: AppColors.text2, fontSize: 13)),
-        ),
-        Text('·', style: TextStyle(color: AppColors.text3)),
-      ]).toList(),
-    );
-  }
-}
-
-// ────────────────────────────────────────────────────────────────────────────
-// MANIFESTO
-// ────────────────────────────────────────────────────────────────────────────
-
-class ManifestoSection extends StatelessWidget {
-  final Map<String, String> dict;
-  const ManifestoSection({super.key, required this.dict});
-
-  @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final fontSize = (width * 0.04).clamp(28.0, 48.0);
-
-    return _Container(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 80),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 880),
-          child: _Manifesto(
-            line1: dict['manifesto.line1']!,
-            line2: dict['manifesto.line2']!,
-            highlight: dict['manifesto.line2.hl']!,
-            fontSize: fontSize,
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class _Manifesto extends StatelessWidget {
   final String line1;
@@ -812,15 +784,13 @@ class ServicesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final cols = width < 700 ? 1 : (width < 1100 ? 2 : 3);
+    final cols = width < 700 ? 1 : 2;
 
     final services = [
-      ('01', dict['svc1.title']!, dict['svc1.desc']!, ['Web apps', 'APIs', 'Dashboards', 'Integrations']),
-      ('02', dict['svc2.title']!, dict['svc2.desc']!, ['Flutter', 'iOS', 'Android', 'App Store']),
-      ('03', dict['svc3.title']!, dict['svc3.desc']!, ['OpenAI', 'Anthropic', 'Gemini', 'RAG', 'Agents']),
-      ('04', dict['svc4.title']!, dict['svc4.desc']!, ['AWS', 'GCP', 'K8s', 'Terraform', 'Datadog']),
-      ('05', dict['svc5.title']!, dict['svc5.desc']!, ['Architecture', 'Audit', 'DD', 'Hiring']),
-      ('06', dict['svc6.title']!, dict['svc6.desc']!, ['Retainer', 'SLA', 'Squad', 'Roadmap']),
+      ('01', dict['svc1.title']!, dict['svc1.desc']!),
+      ('02', dict['svc2.title']!, dict['svc2.desc']!),
+      ('03', dict['svc3.title']!, dict['svc3.desc']!),
+      ('04', dict['svc4.title']!, dict['svc4.desc']!),
     ];
 
     return _Container(
@@ -831,13 +801,17 @@ class ServicesSection extends StatelessWidget {
           children: [
             SectionHead(kicker: dict['services.kicker']!, title: dict['services.title']!),
             const SizedBox(height: 64),
-            GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: cols,
-              crossAxisSpacing: 24, mainAxisSpacing: 24,
-              childAspectRatio: cols == 1 ? 1.4 : 1.0,
-              children: services.map((s) => _ServiceCard(num: s.$1, title: s.$2, desc: s.$3, tags: s.$4)).toList(),
+            LayoutBuilder(
+              builder: (context, c) {
+                final colW = (c.maxWidth - (cols - 1) * 24) / cols;
+                return Wrap(
+                  spacing: 24, runSpacing: 24,
+                  children: services.map((s) => SizedBox(
+                    width: colW,
+                    child: _ServiceCard(num: s.$1, title: s.$2, desc: s.$3),
+                  )).toList(),
+                );
+              },
             ),
           ],
         ),
@@ -848,8 +822,7 @@ class ServicesSection extends StatelessWidget {
 
 class _ServiceCard extends StatefulWidget {
   final String num, title, desc;
-  final List<String> tags;
-  const _ServiceCard({required this.num, required this.title, required this.desc, required this.tags});
+  const _ServiceCard({required this.num, required this.title, required this.desc});
 
   @override
   State<_ServiceCard> createState() => _ServiceCardState();
@@ -865,7 +838,7 @@ class _ServiceCardState extends State<_ServiceCard> {
       onExit: (_) => setState(() => _hover = false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.all(28),
+        padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
           color: _hover ? AppColors.bg3 : AppColors.bg2,
           border: Border.all(color: _hover ? AppColors.border2 : AppColors.border),
@@ -874,27 +847,13 @@ class _ServiceCardState extends State<_ServiceCard> {
         transform: Matrix4.identity()..translate(0.0, _hover ? -4.0 : 0.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(widget.num, style: AppText.mono.copyWith(color: AppColors.accent, fontSize: 12, letterSpacing: 1.2)),
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
             Text(widget.title, style: AppText.h4.copyWith(color: AppColors.text)),
             const SizedBox(height: 12),
-            Expanded(
-              child: Text(widget.desc, style: AppText.body.copyWith(color: AppColors.text2, fontSize: 15)),
-            ),
-            const SizedBox(height: 16),
-            Wrap(
-              spacing: 6, runSpacing: 6,
-              children: widget.tags.map((t) => Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: AppColors.bg,
-                  border: Border.all(color: AppColors.border),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Text(t, style: AppText.mono.copyWith(fontSize: 11, color: AppColors.text2)),
-              )).toList(),
-            ),
+            Text(widget.desc, style: AppText.body.copyWith(color: AppColors.text2, fontSize: 15)),
           ],
         ),
       ),
@@ -903,56 +862,188 @@ class _ServiceCardState extends State<_ServiceCard> {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
-// STACK
+// PRODUCTS — software we build AND sell directly (SaaS).
+// Shown to Stripe's reviewer as proof that Oligon Technology has products for
+// recurring billing, not just consulting. Update when a second product launches.
 // ────────────────────────────────────────────────────────────────────────────
 
-class StackSection extends StatelessWidget {
+class ProductsSection extends StatelessWidget {
   final Map<String, String> dict;
-  const StackSection({super.key, required this.dict});
+  const ProductsSection({super.key, required this.dict});
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final cols = width < 700 ? 1 : (width < 1100 ? 2 : 3);
+    final twoCols = width >= 800;
 
-    final cats = [
-      (dict['stack.cat1']!, ['React', 'Next.js', 'Angular', 'Vue', 'Astro', 'Flutter Web', 'TypeScript', 'Tailwind']),
-      (dict['stack.cat2']!, ['iOS', 'Android', 'Flutter', 'React Native', 'Swift', 'Kotlin', 'RevenueCat']),
-      (dict['stack.cat3']!, ['Java', 'Spring Boot', 'Kotlin', 'C# / .NET', 'Node.js', 'NestJS', 'Python', 'FastAPI', 'Go', 'Elixir', 'Rust', 'C++']),
-      (dict['stack.cat4']!, ['PostgreSQL', 'Aurora', 'Cassandra', 'Firestore', 'MongoDB', 'Redis', 'BigQuery', 'Pinecone', 'pgvector']),
-      (dict['stack.cat5']!, ['AWS', 'Azure', 'GCP', 'Firebase', 'Kubernetes', 'Docker', 'Terraform', 'Cloudflare', 'Vercel']),
-      (dict['stack.cat6']!, ['Kafka', 'RabbitMQ', 'Pub/Sub', 'Datadog', 'Sentry', 'OpenTelemetry', 'GitHub Actions']),
-      (dict['stack.cat7']!, ['OpenAI', 'Anthropic', 'Gemini', 'LangChain', 'LangGraph', 'MCP', 'Pinecone', 'Weaviate', 'RAG', 'Vertex AI']),
-    ];
-
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter, end: Alignment.bottomCenter,
-          colors: [AppColors.bg, AppColors.bg2, AppColors.bg],
+    return _Container(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 100),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SectionHead(kicker: dict['products.kicker']!, title: dict['products.title']!),
+            const SizedBox(height: 64),
+            LayoutBuilder(
+              builder: (context, c) {
+                final colW = twoCols ? (c.maxWidth - 24) / 2 : c.maxWidth;
+                return Wrap(
+                  spacing: 24,
+                  runSpacing: 24,
+                  children: [
+                    SizedBox(
+                      width: colW,
+                      child: _ProductCard(
+                        title: dict['products.attendari.title']!,
+                        tag: dict['products.attendari.tag']!,
+                        desc: dict['products.attendari.desc']!,
+                        status: dict['products.attendari.status']!,
+                        cta: dict['products.attendari.cta']!,
+                        url: 'https://attendari.com',
+                      ),
+                    ),
+                    SizedBox(
+                      width: colW,
+                      child: _ProductPlaceholder(
+                        title: dict['products.soon.title']!,
+                        desc: dict['products.soon.desc']!,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
         ),
       ),
-      child: _Container(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 100),
+    );
+  }
+}
+
+class _ProductCard extends StatefulWidget {
+  final String title;
+  final String tag;
+  final String desc;
+  final String status;
+  final String cta;
+  final String url;
+  const _ProductCard({
+    required this.title,
+    required this.tag,
+    required this.desc,
+    required this.status,
+    required this.cta,
+    required this.url,
+  });
+  @override
+  State<_ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<_ProductCard> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: GestureDetector(
+        onTap: () => launchUrl(Uri.parse(widget.url), mode: LaunchMode.externalApplication),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 220),
+          padding: const EdgeInsets.all(32),
+          decoration: BoxDecoration(
+            color: AppColors.bg2,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: _hover ? AppColors.accent.withValues(alpha: 0.6) : AppColors.border,
+            ),
+            boxShadow: _hover
+                ? [
+                    BoxShadow(
+                      color: AppColors.accent.withValues(alpha: 0.15),
+                      blurRadius: 32,
+                      offset: const Offset(0, 8),
+                    ),
+                  ]
+                : null,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SectionHead(kicker: dict['stack.kicker']!, titleHtml: dict['stack.title']!, sub: dict['stack.sub']),
-              const SizedBox(height: 64),
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  return Wrap(
-                    spacing: 16, runSpacing: 16,
-                    children: cats.map((c) {
-                      final colWidth = (constraints.maxWidth - (cols - 1) * 16) / cols;
-                      return SizedBox(
-                        width: colWidth,
-                        child: _StackCat(name: c.$1, tags: c.$2),
-                      );
-                    }).toList(),
-                  );
-                },
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: AppColors.accent.withValues(alpha: 0.18),
+                      borderRadius: BorderRadius.circular(999),
+                      border: Border.all(color: AppColors.accent.withValues(alpha: 0.4)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 6,
+                          height: 6,
+                          decoration: BoxDecoration(
+                            color: AppColors.accent,
+                            borderRadius: BorderRadius.circular(999),
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          widget.status,
+                          style: const TextStyle(
+                            color: AppColors.accent,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.4,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    widget.tag,
+                    style: const TextStyle(
+                      color: AppColors.text2,
+                      fontSize: 11,
+                      letterSpacing: 1.2,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 22),
+              Text(
+                widget.title,
+                style: const TextStyle(
+                  color: AppColors.text,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: -0.5,
+                ),
+              ),
+              const SizedBox(height: 14),
+              Text(
+                widget.desc,
+                style: const TextStyle(
+                  color: AppColors.text2,
+                  fontSize: 14.5,
+                  height: 1.55,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                widget.cta,
+                style: TextStyle(
+                  color: _hover ? AppColors.accent : AppColors.text,
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ],
           ),
@@ -962,63 +1053,67 @@ class StackSection extends StatelessWidget {
   }
 }
 
-class _StackCat extends StatelessWidget {
-  final String name;
-  final List<String> tags;
-  const _StackCat({required this.name, required this.tags});
+class _ProductPlaceholder extends StatelessWidget {
+  final String title;
+  final String desc;
+  const _ProductPlaceholder({required this.title, required this.desc});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
-        color: AppColors.bg2,
-        border: Border.all(color: AppColors.border),
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.border, style: BorderStyle.solid),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            AppColors.bg2.withValues(alpha: 0.4),
+            AppColors.bg.withValues(alpha: 0.2),
+          ],
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(name.toUpperCase(),
-              style: AppText.mono.copyWith(fontSize: 12, color: AppColors.text3, letterSpacing: 1.2)),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 8, runSpacing: 8,
-            children: tags.map((t) => _StackChip(t)).toList(),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: AppColors.text2.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(999),
+              border: Border.all(color: AppColors.border),
+            ),
+            child: Text(
+              'WIP',
+              style: TextStyle(
+                color: AppColors.text2,
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.4,
+              ),
+            ),
+          ),
+          const SizedBox(height: 22),
+          Text(
+            title,
+            style: TextStyle(
+              color: AppColors.text.withValues(alpha: 0.6),
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              letterSpacing: -0.3,
+            ),
+          ),
+          const SizedBox(height: 14),
+          Text(
+            desc,
+            style: const TextStyle(
+              color: AppColors.text2,
+              fontSize: 14,
+              height: 1.55,
+            ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _StackChip extends StatefulWidget {
-  final String label;
-  const _StackChip(this.label);
-
-  @override
-  State<_StackChip> createState() => _StackChipState();
-}
-
-class _StackChipState extends State<_StackChip> {
-  bool _hover = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _hover = true),
-      onExit: (_) => setState(() => _hover = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        decoration: BoxDecoration(
-          color: AppColors.bg3,
-          border: Border.all(color: _hover ? AppColors.accent : AppColors.border),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Text(widget.label, style: AppText.label.copyWith(
-          color: _hover ? AppColors.accent : AppColors.text, fontSize: 13,
-        )),
       ),
     );
   }
@@ -1049,7 +1144,14 @@ class ProcessSection extends StatelessWidget {
           children: [
             SectionHead(kicker: dict['process.kicker']!, titleHtml: dict['process.title']!),
             const SizedBox(height: 64),
-            ...steps.map((s) => _TimelineStep(num: s.$1, title: s.$2, desc: s.$3, time: s.$4)),
+            for (int i = 0; i < steps.length; i++)
+              _TimelineStep(
+                num: steps[i].$1,
+                title: steps[i].$2,
+                desc: steps[i].$3,
+                time: steps[i].$4,
+                isLast: i == steps.length - 1,
+              ),
           ],
         ),
       ),
@@ -1059,44 +1161,107 @@ class ProcessSection extends StatelessWidget {
 
 class _TimelineStep extends StatelessWidget {
   final String num, title, desc, time;
-  const _TimelineStep({required this.num, required this.title, required this.desc, required this.time});
+  final bool isLast;
+  const _TimelineStep({required this.num, required this.title, required this.desc, required this.time, required this.isLast});
 
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 600;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24),
-      child: Container(
-        padding: EdgeInsets.all(isMobile ? 20 : 28),
-        decoration: BoxDecoration(
-          color: AppColors.bg2,
-          border: Border.all(color: AppColors.border),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 56, height: 56,
-              decoration: const BoxDecoration(gradient: AppColors.gradient, shape: BoxShape.circle),
-              alignment: Alignment.center,
-              child: Text(num, style: AppText.h6.copyWith(color: AppColors.bg, fontWeight: FontWeight.w800)),
-            ),
-            const SizedBox(width: 24),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: AppText.h4.copyWith(color: AppColors.text)),
-                  const SizedBox(height: 8),
-                  Text(desc, style: AppText.body.copyWith(color: AppColors.text2)),
-                  const SizedBox(height: 12),
-                  Text(time, style: AppText.mono.copyWith(color: AppColors.text3, fontSize: 12)),
-                ],
+    final circleSize = isMobile ? 40.0 : 56.0;
+    final gap = isMobile ? 14.0 : 24.0;
+    final cardPad = isMobile ? 18.0 : 28.0;
+    final bottomGap = isLast ? 0.0 : (isMobile ? 20.0 : 32.0);
+    final titleStyle = AppText.h4.copyWith(
+      color: AppColors.text,
+      fontSize: isMobile ? 17 : 20,
+    );
+
+    final pill = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: AppColors.accentGlow,
+        border: Border.all(color: AppColors.accent.withValues(alpha: 0.3)),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(time, style: AppText.mono.copyWith(color: AppColors.accent, fontSize: 11)),
+    );
+
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            children: [
+              Container(
+                width: circleSize, height: circleSize,
+                decoration: const BoxDecoration(gradient: AppColors.gradient, shape: BoxShape.circle),
+                alignment: Alignment.center,
+                child: Text(
+                  num,
+                  style: AppText.h6.copyWith(
+                    color: AppColors.bg,
+                    fontWeight: FontWeight.w800,
+                    fontSize: isMobile ? 14 : 18,
+                  ),
+                ),
+              ),
+              if (!isLast)
+                Expanded(
+                  child: Container(
+                    width: 2,
+                    margin: const EdgeInsets.symmetric(vertical: 6),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter, end: Alignment.bottomCenter,
+                        colors: [AppColors.accent2.withValues(alpha: 0.4), AppColors.border],
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          SizedBox(width: gap),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(bottom: bottomGap),
+              child: Container(
+                padding: EdgeInsets.all(cardPad),
+                decoration: BoxDecoration(
+                  color: AppColors.bg2,
+                  border: Border.all(color: AppColors.border),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (isMobile) ...[
+                      Align(alignment: Alignment.centerLeft, child: pill),
+                      const SizedBox(height: 10),
+                      Text(title, style: titleStyle),
+                    ] else
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(child: Text(title, style: titleStyle)),
+                          const SizedBox(width: 12),
+                          pill,
+                        ],
+                      ),
+                    const SizedBox(height: 10),
+                    Text(
+                      desc,
+                      style: AppText.body.copyWith(
+                        color: AppColors.text2,
+                        fontSize: isMobile ? 14.5 : 16,
+                        height: 1.55,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -1131,8 +1296,13 @@ class _ContactSectionState extends State<ContactSection> {
     super.dispose();
   }
 
+  static final _emailRe = RegExp(r'^[\w\.\-+]+@[\w\-]+(\.[\w\-]+)+$');
+
   void _submit() {
-    if (_name.text.trim().isEmpty || _email.text.trim().isEmpty || _message.text.trim().isEmpty) {
+    final name = _name.text.trim();
+    final email = _email.text.trim();
+    final message = _message.text.trim();
+    if (name.isEmpty || email.isEmpty || message.isEmpty || !_emailRe.hasMatch(email)) {
       setState(() {
         _msg = widget.dict['form.error']!;
         _msgColor = const Color(0xFFFFB200);
@@ -1172,7 +1342,7 @@ class _ContactSectionState extends State<ContactSection> {
                 border: Border.all(color: AppColors.border2),
                 borderRadius: BorderRadius.circular(24),
                 boxShadow: [
-                  BoxShadow(color: AppColors.accent.withOpacity(0.08), blurRadius: 60, spreadRadius: 4),
+                  BoxShadow(color: AppColors.accent.withValues(alpha: 0.08), blurRadius: 60, spreadRadius: 4),
                 ],
               ),
               child: Column(
@@ -1336,14 +1506,12 @@ class FooterSection extends StatelessWidget {
           children: [
             _FooterLink(d['nav.services']!, onTap: () => onNav('services')),
             const SizedBox(height: 8),
-            _FooterLink(d['nav.stack']!, onTap: () => onNav('stack')),
-            const SizedBox(height: 8),
             _FooterLink(d['nav.process']!, onTap: () => onNav('process')),
             const SizedBox(height: 8),
             _FooterLink(d['nav.contact']!, onTap: () => onNav('contact')),
           ],
         ),
-        // Coluna 3: contato · email clicável + GitHub link
+        // Coluna 3: contato
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -1352,12 +1520,6 @@ class FooterSection extends StatelessWidget {
               mono: true,
               accent: true,
               onTap: () => launchUrl(Uri.parse('mailto:contact@oligontech.com')),
-            ),
-            const SizedBox(height: 8),
-            _FooterLink(
-              'github.com/gogoncalves',
-              mono: true,
-              onTap: () => launchUrl(Uri.parse('https://github.com/gogoncalves'), mode: LaunchMode.externalApplication),
             ),
             const SizedBox(height: 12),
             Text(d['footer.copy']!, style: AppText.body.copyWith(color: AppColors.text3, fontSize: 13)),
@@ -1437,7 +1599,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
             color: AppColors.accent,
             borderRadius: BorderRadius.circular(10),
             boxShadow: _hover
-                ? [BoxShadow(color: AppColors.accent.withOpacity(0.25), blurRadius: 24, offset: const Offset(0, 8))]
+                ? [BoxShadow(color: AppColors.accent.withValues(alpha: 0.25), blurRadius: 24, offset: const Offset(0, 8))]
                 : null,
           ),
           transform: Matrix4.identity()..translate(0.0, _hover ? -2.0 : 0.0),
@@ -1445,9 +1607,13 @@ class _PrimaryButtonState extends State<PrimaryButton> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(widget.label, style: AppText.label.copyWith(color: AppColors.bg, fontSize: 14)),
+              Text(widget.label, style: AppText.label.copyWith(color: AppColors.bg, fontSize: 14, fontWeight: FontWeight.w600)),
               const SizedBox(width: 8),
-              const Icon(Icons.arrow_forward, size: 14, color: AppColors.bg),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                transform: Matrix4.identity()..translate(_hover ? 4.0 : 0.0, 0.0),
+                child: Text('→', style: AppText.label.copyWith(color: AppColors.bg, fontSize: 16, fontWeight: FontWeight.w600)),
+              ),
             ],
           ),
         ),
@@ -1487,6 +1653,126 @@ class _GhostButtonState extends State<GhostButton> {
           child: Text(widget.label, style: AppText.label.copyWith(color: AppColors.text, fontSize: 14)),
         ),
       ),
+    );
+  }
+}
+
+
+// ────────────────────────────────────────────────────────────────────────────
+// Reveal-on-mount fade + slide
+// ────────────────────────────────────────────────────────────────────────────
+
+// ────────────────────────────────────────────────────────────────────────────
+// Privacy banner (localStorage notice — sem cookies)
+// ────────────────────────────────────────────────────────────────────────────
+
+class _PrivacyBanner extends StatelessWidget {
+  final bool visible;
+  final Map<String, String> dict;
+  final VoidCallback onOk;
+  const _PrivacyBanner({required this.visible, required this.dict, required this.onOk});
+
+  @override
+  Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 700;
+    return IgnorePointer(
+      ignoring: !visible,
+      child: AnimatedSlide(
+        offset: visible ? Offset.zero : const Offset(0, 1),
+        duration: const Duration(milliseconds: 350),
+        curve: Curves.easeOutCubic,
+        child: AnimatedOpacity(
+          opacity: visible ? 1 : 0,
+          duration: const Duration(milliseconds: 250),
+          child: Padding(
+            padding: EdgeInsets.all(isMobile ? 12 : 20),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 720),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(14),
+                  child: BackdropFilter(
+                    filter: ui.ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 22, vertical: 14),
+                      decoration: BoxDecoration(
+                        color: AppColors.bg2.withValues(alpha: 0.82),
+                        border: Border.all(color: AppColors.border2),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: isMobile
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  dict['privacy.text']!,
+                                  style: AppText.body.copyWith(color: AppColors.text2, fontSize: 13.5, height: 1.45),
+                                ),
+                                const SizedBox(height: 12),
+                                _SmallBtn(dict['privacy.ok']!, onTap: onOk),
+                              ],
+                            )
+                          : Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    dict['privacy.text']!,
+                                    style: AppText.body.copyWith(color: AppColors.text2, fontSize: 14, height: 1.45),
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                _SmallBtn(dict['privacy.ok']!, onTap: onOk),
+                              ],
+                            ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _FadeIn extends StatefulWidget {
+  final Widget child;
+  final Duration delay;
+  const _FadeIn({required this.child, this.delay = Duration.zero});
+
+  @override
+  State<_FadeIn> createState() => _FadeInState();
+}
+
+class _FadeInState extends State<_FadeIn> with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+  late final Animation<double> _opacity;
+  late final Animation<Offset> _slide;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
+    _opacity = CurvedAnimation(parent: _ctrl, curve: Curves.easeOut);
+    _slide = Tween<Offset>(begin: const Offset(0, 0.04), end: Offset.zero)
+        .animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOutCubic));
+    Future.delayed(widget.delay, () { if (mounted) _ctrl.forward(); });
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: _opacity,
+      child: SlideTransition(position: _slide, child: widget.child),
     );
   }
 }

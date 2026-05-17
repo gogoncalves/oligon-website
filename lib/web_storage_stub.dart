@@ -2,3 +2,5 @@
 String? readLang() => null;
 void writeLang(String lang) {}
 String navigatorLanguage() => 'pt';
+bool readPrivacyAck() => true;
+void writePrivacyAck() {}

@@ -1,23 +1,20 @@
-// Static i18n maps. PT default, +EN +ES +FR.
+// Static i18n maps. PT default, +EN.
 // Tags suportadas em valores:
 //   <grad>texto</grad>  → renderizado com gradient (ShaderMask)
 //   <m>texto</m>        → texto muted (cinza)
 
 class I18n {
-  static const supported = ['pt', 'en', 'es', 'fr'];
+  static const supported = ['pt', 'en'];
 
   static const Map<String, Map<String, String>> dict = {
     'pt': _pt,
     'en': _en,
-    'es': _es,
-    'fr': _fr,
   };
 
   static const _pt = {
     'meta.title': 'Oligon Technology · Engenharia de software sob medida',
 
     'nav.services': 'Serviços',
-    'nav.stack': 'Stack',
     'nav.process': 'Processo',
     'nav.contact': 'Contato',
     'nav.cta': 'Vamos conversar',
@@ -36,29 +33,14 @@ class I18n {
     'services.kicker': 'Serviços',
     'services.title': 'Engenharia, ponta a ponta.',
 
-    'svc1.title': 'Desenvolvimento sob medida',
-    'svc1.desc': 'Web apps, APIs, ferramentas internas. Stack moderna, arquitetura escalável, deploy contínuo. Você fica com o código.',
+    'svc1.title': 'Produtos sob medida',
+    'svc1.desc': 'Web apps, APIs e infraestrutura cloud production-grade. Arquitetura escalável, CI/CD, observability. Você fica com o código.',
     'svc2.title': 'Aplicativos mobile',
     'svc2.desc': 'iOS/Android nativos ou Flutter cross-platform. Do MVP ao app em escala. Submissão, IAP, push, analytics.',
     'svc3.title': 'IA & agentes',
-    'svc3.desc': 'Features com LLM, agentes autônomos, pipelines RAG, vector search, servidores MCP. Valor real, não demos.',
-    'svc4.title': 'Cloud & plataforma',
-    'svc4.desc': 'Infraestrutura production-grade. Multi-cloud, observability, CI/CD, IaC. Operação SLO-driven, on-call ready.',
-    'svc5.title': 'Consultoria técnica',
-    'svc5.desc': 'Architecture review, escolha de stack, due diligence, hiring. Opiniões afiadas, sem buzzword.',
-    'svc6.title': 'Engenharia contínua',
-    'svc6.desc': 'Squad embarcado ou modelo retainer. Backlog real, cadência real, SLAs claros.',
-
-    'stack.kicker': 'Stack',
-    'stack.title': 'Tech que <grad>colocamos em produção</grad>.',
-    'stack.sub': 'Sem religião com tools. Escolhemos pelo problema, dominamos cada uma o suficiente pra entregar com confiança.',
-    'stack.cat1': 'Frontend',
-    'stack.cat2': 'Mobile',
-    'stack.cat3': 'Backend',
-    'stack.cat4': 'Dados',
-    'stack.cat5': 'Cloud & infra',
-    'stack.cat6': 'Eventos & ops',
-    'stack.cat7': 'IA & agentes',
+    'svc3.desc': 'Features com LLM, agentes autônomos, pipelines RAG, servidores MCP. Valor real, não demos.',
+    'svc4.title': 'Parceria de engenharia',
+    'svc4.desc': 'Advisory técnico, squads embarcados ou retainer mensal. Architecture review, due diligence, cadência real, SLAs claros.',
 
     'process.kicker': 'Processo',
     'process.title': 'Da ideia ao <grad>produção</grad>.',
@@ -89,16 +71,29 @@ class I18n {
 
     'form.error': '⚠ Preencha os campos obrigatórios',
     'form.opening': '✓ Abrindo seu cliente de email...',
+
+    'privacy.text': 'Não usamos cookies nem rastreio. Armazenamos apenas sua preferência de idioma localmente.',
+    'privacy.ok': 'OK',
   };
 
   static const _en = {
     'meta.title': 'Oligon Technology · Custom software engineering',
 
     'nav.services': 'Services',
-    'nav.stack': 'Stack',
+    'nav.products': 'Products',
     'nav.process': 'Process',
     'nav.contact': 'Contact',
     'nav.cta': 'Talk to us',
+
+    'products.kicker': 'Products',
+    'products.title': 'Software we <grad>sell</grad>.',
+    'products.attendari.title': 'Attendari',
+    'products.attendari.tag': 'AI WhatsApp SaaS',
+    'products.attendari.desc': 'AI receptionist on WhatsApp 24/7 for Brazilian small businesses. Books, charges Pix deposits, replies to customers. Monthly subscription R\$ 99 – R\$ 699.',
+    'products.attendari.status': 'Live',
+    'products.attendari.cta': 'attendari.com →',
+    'products.soon.title': 'More in build',
+    'products.soon.desc': 'Other Oligon products in development.',
 
     'hero.title.line1': 'Custom software',
     'hero.title.line2': 'for ambitious',
@@ -114,29 +109,14 @@ class I18n {
     'services.kicker': 'Services',
     'services.title': 'Engineering, end-to-end.',
 
-    'svc1.title': 'Custom development',
-    'svc1.desc': 'Web apps, APIs, internal tools. Modern stack, scalable architecture, continuous deployment. You own the code.',
+    'svc1.title': 'Custom products',
+    'svc1.desc': 'Web apps, APIs and production-grade cloud infrastructure. Scalable architecture, CI/CD, observability. You own the code.',
     'svc2.title': 'Mobile apps',
     'svc2.desc': 'Native iOS/Android or cross-platform with Flutter. From MVP to scale. Submission, IAP, push notifications, analytics.',
     'svc3.title': 'AI & agents',
-    'svc3.desc': 'LLM-powered features, autonomous agents, RAG pipelines, vector search, MCP servers. Real value, not demos.',
-    'svc4.title': 'Cloud & platform',
-    'svc4.desc': 'Production-grade infrastructure. Multi-cloud, observability, CI/CD, IaC. SLO-driven operations, on-call ready.',
-    'svc5.title': 'Technical advisory',
-    'svc5.desc': 'Architecture review, stack selection, tech due diligence, hiring assessments. Sharp opinions, no buzzwords.',
-    'svc6.title': 'Continuous engineering',
-    'svc6.desc': 'Embedded squads or retainer model. Real backlog, real shipping cadence, clear SLAs.',
-
-    'stack.kicker': 'Stack',
-    'stack.title': 'Tech we <grad>ship to production</grad>.',
-    'stack.sub': "No religion about tools. We pick by problem, master each enough to ship with confidence.",
-    'stack.cat1': 'Frontend',
-    'stack.cat2': 'Mobile',
-    'stack.cat3': 'Backend',
-    'stack.cat4': 'Data',
-    'stack.cat5': 'Cloud & infra',
-    'stack.cat6': 'Events & ops',
-    'stack.cat7': 'AI & agents',
+    'svc3.desc': 'LLM-powered features, autonomous agents, RAG pipelines, MCP servers. Real value, not demos.',
+    'svc4.title': 'Engineering partnership',
+    'svc4.desc': 'Technical advisory, embedded squads or monthly retainer. Architecture review, due diligence, real cadence, clear SLAs.',
 
     'process.kicker': 'Process',
     'process.title': 'From idea to <grad>shipped</grad>.',
@@ -167,161 +147,9 @@ class I18n {
 
     'form.error': '⚠ Required fields',
     'form.opening': '✓ Opening your email client...',
+
+    'privacy.text': 'No cookies, no tracking. We only store your language preference locally.',
+    'privacy.ok': 'OK',
   };
 
-  static const _es = {
-    'meta.title': 'Oligon Technology · Ingeniería de software a medida',
-
-    'nav.services': 'Servicios',
-    'nav.stack': 'Stack',
-    'nav.process': 'Proceso',
-    'nav.contact': 'Contacto',
-    'nav.cta': 'Hablemos',
-
-    'hero.title.line1': 'Software a medida',
-    'hero.title.line2': 'para equipos',
-    'hero.title.line3': '<grad>ambiciosos</grad>.',
-    'hero.lead': 'Construimos productos, sistemas de IA y plataformas de ingeniería en producción. Equipo senior, sin abstracciones, código tuyo.',
-    'hero.ctaPrimary': 'Iniciar un proyecto',
-    'hero.ctaSecondary': 'Ver servicios',
-
-    'manifesto.line1': 'No vendemos <m>"transformación digital"</m>.',
-    'manifesto.line2': 'Entregamos software que se gana su lugar.',
-    'manifesto.line2.hl': 'software',
-
-    'services.kicker': 'Servicios',
-    'services.title': 'Ingeniería, de extremo a extremo.',
-
-    'svc1.title': 'Desarrollo a medida',
-    'svc1.desc': 'Web apps, APIs, herramientas internas. Stack moderno, arquitectura escalable, despliegue continuo. El código es tuyo.',
-    'svc2.title': 'Aplicaciones móviles',
-    'svc2.desc': 'iOS/Android nativos o Flutter cross-platform. Del MVP al app a escala. Submission, IAP, push, analytics.',
-    'svc3.title': 'IA y agentes',
-    'svc3.desc': 'Features con LLM, agentes autónomos, pipelines RAG, vector search, servidores MCP. Valor real, no demos.',
-    'svc4.title': 'Cloud y plataforma',
-    'svc4.desc': 'Infraestructura production-grade. Multi-cloud, observability, CI/CD, IaC. Operación SLO-driven, on-call ready.',
-    'svc5.title': 'Consultoría técnica',
-    'svc5.desc': 'Architecture review, selección de stack, due diligence, hiring. Opiniones afiladas, sin buzzwords.',
-    'svc6.title': 'Ingeniería continua',
-    'svc6.desc': 'Squad embebido o modelo retainer. Backlog real, cadencia real, SLAs claros.',
-
-    'stack.kicker': 'Stack',
-    'stack.title': 'Tech que <grad>llevamos a producción</grad>.',
-    'stack.sub': 'Sin religión con tools. Elegimos por el problema, dominamos cada una lo suficiente para entregar con confianza.',
-    'stack.cat1': 'Frontend',
-    'stack.cat2': 'Mobile',
-    'stack.cat3': 'Backend',
-    'stack.cat4': 'Datos',
-    'stack.cat5': 'Cloud e infra',
-    'stack.cat6': 'Eventos y ops',
-    'stack.cat7': 'IA y agentes',
-
-    'process.kicker': 'Proceso',
-    'process.title': 'De la idea al <grad>producción</grad>.',
-    'process.s1.title': 'Discovery',
-    'process.s1.desc': 'Conversación inicial gratuita. Entendemos el problema, alcance y criterios de éxito.',
-    'process.s1.time': '1–2 sesiones · gratis',
-    'process.s2.title': 'Propuesta técnica',
-    'process.s2.desc': 'Arquitectura, stack, milestones, plazos, inversión. Todo escrito para que decidas con calma.',
-    'process.s2.time': '3–5 días hábiles',
-    'process.s3.title': 'Ejecución',
-    'process.s3.desc': 'Sprints cortas con demo semanal. Progreso real, no slides. Código en tu repo.',
-    'process.s3.time': '2–12 semanas según alcance',
-    'process.s4.title': 'Handover y soporte',
-    'process.s4.desc': 'Documentación, capacitación opcional del equipo, retainer mensual opcional.',
-    'process.s4.time': 'Recurrente o one-shot',
-
-    'cta.title': '¿Tienes algo para construir?',
-    'cta.desc': 'Cuéntanos qué tienes en mente. La primera conversación va por nuestra cuenta. Sin compromiso, sin propuesta automática.',
-    'cta.namePlaceholder': 'Nombre',
-    'cta.emailPlaceholder': 'email@empresa.com',
-    'cta.companyPlaceholder': 'Empresa (opcional)',
-    'cta.messagePlaceholder': 'Cuéntanos brevemente qué quieres construir...',
-    'cta.submit': 'Enviar',
-    'cta.altPrefix': '¿Prefieres email?',
-
-    'footer.tag': 'Ingeniería de software a medida.',
-    'footer.copy': '© 2026 Oligon Technology',
-
-    'form.error': '⚠ Completa los campos requeridos',
-    'form.opening': '✓ Abriendo tu cliente de email...',
-  };
-
-  static const _fr = {
-    'meta.title': 'Oligon Technology · Ingénierie logicielle sur mesure',
-
-    'nav.services': 'Services',
-    'nav.stack': 'Stack',
-    'nav.process': 'Processus',
-    'nav.contact': 'Contact',
-    'nav.cta': 'Parlons-en',
-
-    'hero.title.line1': 'Logiciel sur mesure',
-    'hero.title.line2': 'pour équipes',
-    'hero.title.line3': '<grad>ambitieuses</grad>.',
-    'hero.lead': "Nous construisons des produits, des systèmes d'IA et des plateformes d'ingénierie en production. Équipe senior, sans abstractions, code qui vous appartient.",
-    'hero.ctaPrimary': 'Démarrer un projet',
-    'hero.ctaSecondary': 'Voir services',
-
-    'manifesto.line1': 'Nous ne vendons pas de <m>"transformation digitale"</m>.',
-    'manifesto.line2': 'Nous livrons du logiciel qui mérite sa place.',
-    'manifesto.line2.hl': 'logiciel',
-
-    'services.kicker': 'Services',
-    'services.title': 'Ingénierie, de bout en bout.',
-
-    'svc1.title': 'Développement sur mesure',
-    'svc1.desc': "Web apps, APIs, outils internes. Stack moderne, architecture scalable, déploiement continu. Le code est à vous.",
-    'svc2.title': 'Applications mobiles',
-    'svc2.desc': "iOS/Android natifs ou Flutter cross-platform. Du MVP à l'app à l'échelle. Submission, IAP, push, analytics.",
-    'svc3.title': 'IA & agents',
-    'svc3.desc': "Features LLM, agents autonomes, pipelines RAG, recherche vectorielle, serveurs MCP. Valeur réelle, pas des démos.",
-    'svc4.title': 'Cloud & plateforme',
-    'svc4.desc': 'Infrastructure production-grade. Multi-cloud, observability, CI/CD, IaC. Opération SLO-driven, on-call ready.',
-    'svc5.title': 'Conseil technique',
-    'svc5.desc': "Architecture review, choix de stack, due diligence, recrutement. Opinions pointues, sans buzzwords.",
-    'svc6.title': 'Ingénierie continue',
-    'svc6.desc': 'Squad embarqué ou modèle retainer. Backlog réel, cadence réelle, SLAs clairs.',
-
-    'stack.kicker': 'Stack',
-    'stack.title': 'Tech qu\'on <grad>met en production</grad>.',
-    'stack.sub': 'Pas de religion sur les outils. On choisit par problème, on maîtrise chacun assez pour livrer avec confiance.',
-    'stack.cat1': 'Frontend',
-    'stack.cat2': 'Mobile',
-    'stack.cat3': 'Backend',
-    'stack.cat4': 'Données',
-    'stack.cat5': 'Cloud & infra',
-    'stack.cat6': 'Events & ops',
-    'stack.cat7': 'IA & agents',
-
-    'process.kicker': 'Processus',
-    'process.title': "De l'idée à la <grad>production</grad>.",
-    'process.s1.title': 'Discovery',
-    'process.s1.desc': 'Conversation initiale gratuite. On comprend le problème, le périmètre et les critères de succès.',
-    'process.s1.time': '1–2 sessions · gratuit',
-    'process.s2.title': 'Proposition technique',
-    'process.s2.desc': 'Architecture, stack, jalons, délai, investissement. Tout écrit pour décider sereinement.',
-    'process.s2.time': '3–5 jours ouvrés',
-    'process.s3.title': 'Exécution',
-    'process.s3.desc': "Sprints courts avec démo hebdo. Progression réelle, pas des slides. Code dans votre repo.",
-    'process.s3.time': '2–12 semaines selon périmètre',
-    'process.s4.title': 'Handover & support',
-    'process.s4.desc': "Documentation, formation optionnelle de l'équipe, retainer mensuel optionnel.",
-    'process.s4.time': 'Récurrent ou one-shot',
-
-    'cta.title': 'Vous avez quelque chose à construire ?',
-    'cta.desc': "Dites-nous ce que vous avez en tête. La première conversation est pour nous. Sans engagement, sans proposition automatique.",
-    'cta.namePlaceholder': 'Nom',
-    'cta.emailPlaceholder': 'email@entreprise.com',
-    'cta.companyPlaceholder': 'Entreprise (optionnel)',
-    'cta.messagePlaceholder': 'Décrivez brièvement ce que vous voulez construire...',
-    'cta.submit': 'Envoyer',
-    'cta.altPrefix': 'Préférez email ?',
-
-    'footer.tag': 'Ingénierie logicielle sur mesure.',
-    'footer.copy': '© 2026 Oligon Technology',
-
-    'form.error': '⚠ Champs requis',
-    'form.opening': '✓ Ouverture de votre client mail...',
-  };
 }

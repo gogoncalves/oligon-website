@@ -11,11 +11,15 @@
 
   <title>Oligon Technology · Custom software, AI agents and digital products</title>
   <meta name="description" content="Senior engineering team building custom software, AI agents and digital products that ship. Flutter, Next.js, Go, Python, AI/LLM integrations.">
-  <meta name="keywords" content="software development, AI agents, custom software, Flutter, mobile apps, Next.js, Go, Python, LLM, machine learning, software house, engineering">
   <meta name="author" content="Oligon Technology">
   <meta name="application-name" content="Oligon Technology">
   <meta name="generator" content="Flutter">
   <link rel="canonical" href="https://oligontech.com">
+
+  <!-- Hreflang (multi-language SPA, same URL) -->
+  <link rel="alternate" hreflang="en" href="https://oligontech.com/">
+  <link rel="alternate" hreflang="pt-BR" href="https://oligontech.com/">
+  <link rel="alternate" hreflang="x-default" href="https://oligontech.com/">
 
   <!-- Robots -->
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -29,8 +33,6 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="pt_BR">
-  <meta property="og:locale:alternate" content="es_ES">
-  <meta property="og:locale:alternate" content="fr_FR">
   <meta property="og:image" content="https://oligontech.com/og-image.png">
   <meta property="og:image:secure_url" content="https://oligontech.com/og-image.png">
   <meta property="og:image:type" content="image/png">
@@ -77,11 +79,8 @@
     "logo": "https://oligontech.com/icons/Icon-512.png",
     "image": "https://oligontech.com/og-image.png",
     "description": "Senior engineering team building custom software, AI agents and digital products.",
-    "foundingDate": "2025",
+    "foundingDate": "2026",
     "email": "contact@oligontech.com",
-    "sameAs": [
-      "https://github.com/gogoncalves"
-    ],
     "knowsAbout": [
       "Software Engineering",
       "AI Agents",
@@ -102,7 +101,7 @@
     "@type": "WebSite",
     "name": "Oligon Technology",
     "url": "https://oligontech.com",
-    "inLanguage": ["en", "pt-BR", "es", "fr"],
+    "inLanguage": ["en", "pt-BR"],
     "publisher": {
       "@type": "Organization",
       "name": "Oligon Technology",
@@ -127,9 +126,29 @@
       "AI Agent Development",
       "Mobile App Development",
       "Web Application Development",
-      "Cloud Infrastructure"
+      "Engineering Advisory",
+      "Embedded Engineering Squads"
+    ],
+    "makesOffer": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom products", "description": "Web apps, APIs and production-grade cloud infrastructure." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mobile apps", "description": "Native iOS/Android or cross-platform with Flutter, from MVP to scale." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI & agents", "description": "LLM-powered features, autonomous agents, RAG pipelines, MCP servers." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Engineering partnership", "description": "Technical advisory, embedded squads or monthly retainer with clear SLAs." } }
     ]
   }
+  </script>
+
+  <script>
+    // Atualiza <html lang> conforme preferência salva ou idioma do navegador.
+    // Roda no head — antes do crawler ler o body.
+    (function() {
+      try {
+        var stored = localStorage.getItem('oligon-lang');
+        var nav = (navigator.language || 'en').toLowerCase();
+        var code = stored || (nav.indexOf('pt') === 0 ? 'pt' : 'en');
+        document.documentElement.lang = code === 'pt' ? 'pt-BR' : 'en';
+      } catch (e) {}
+    })();
   </script>
 
   <style>
@@ -176,47 +195,32 @@
     <main class="seo-fallback">
       <header>
         <h1>Oligon Technology · <span class="grad">Custom software that ships</span></h1>
-        <p>Senior engineering team building custom software, AI agents and digital products. Mobile, web, backend and infrastructure — production-grade, end-to-end.</p>
+        <p>Senior engineering team building custom software, AI agents and digital products in production. No abstractions, no buzzwords — code you own.</p>
         <p>
           <a class="cta" href="mailto:contact@oligontech.com">contact@oligontech.com</a>
         </p>
       </header>
 
       <section>
-        <h2>What we build</h2>
-        <h3>Custom software</h3>
-        <p>End-to-end product engineering: from architecture to deployment. Mobile apps, web platforms, internal tools, marketplaces.</p>
-        <h3>AI agents and LLM integration</h3>
-        <p>Production AI: agents, RAG pipelines, prompt engineering, evals. We've shipped to production on Vertex AI, OpenAI, Anthropic.</p>
-        <h3>Mobile apps · Flutter, iOS, Android</h3>
-        <p>Cross-platform Flutter and native when needed. Apple App Store and Google Play deployment, App Check, in-app purchases.</p>
-        <h3>Web applications</h3>
-        <p>Next.js, React, Flutter Web. PWAs, SSR, edge functions. Performance-first.</p>
-        <h3>Cloud infrastructure</h3>
-        <p>GCP, AWS, Firebase, Cloudflare. Serverless, Kubernetes, observability. Cost-optimized from day one.</p>
+        <h2>Services</h2>
+        <h3>01 · Custom products</h3>
+        <p>Web apps, APIs and production-grade cloud infrastructure. Scalable architecture, CI/CD, observability. You own the code.</p>
+        <h3>02 · Mobile apps</h3>
+        <p>Native iOS/Android or cross-platform with Flutter. From MVP to scale. Submission, IAP, push notifications, analytics.</p>
+        <h3>03 · AI &amp; agents</h3>
+        <p>LLM-powered features, autonomous agents, RAG pipelines, MCP servers. Real value, not demos.</p>
+        <h3>04 · Engineering partnership</h3>
+        <p>Technical advisory, embedded squads or monthly retainer. Architecture review, due diligence, real cadence, clear SLAs.</p>
       </section>
 
       <section>
-        <h2>Stack we work with</h2>
-        <ul>
-          <li><strong>Mobile:</strong> Flutter, Dart, Swift, Kotlin</li>
-          <li><strong>Web:</strong> Next.js, React, TypeScript, Flutter Web</li>
-          <li><strong>Backend:</strong> Go, Python, Node.js, Java, Kotlin</li>
-          <li><strong>AI / ML:</strong> LangChain, Vertex AI, OpenAI, Anthropic, embeddings, RAG, fine-tuning</li>
-          <li><strong>Cloud:</strong> GCP, AWS, Firebase, Cloudflare Workers</li>
-          <li><strong>Data:</strong> PostgreSQL, BigQuery, Firestore, Redis, Kafka</li>
-          <li><strong>Observability:</strong> Datadog, Grafana, Prometheus, OpenTelemetry</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Industries</h2>
-        <ul>
-          <li>Fintech and digital banking</li>
-          <li>Health, fitness and wellness</li>
-          <li>Marketplaces and e-commerce</li>
-          <li>SaaS and B2B platforms</li>
-        </ul>
+        <h2>Process</h2>
+        <ol>
+          <li><strong>Discovery</strong> — Free initial conversation. We understand the problem, scope, and success criteria.</li>
+          <li><strong>Technical proposal</strong> — Architecture, stack, milestones, timeline, investment. Written so you can decide calmly.</li>
+          <li><strong>Execution</strong> — Short sprints, weekly demos. Real progress, not slides. Code in your repo.</li>
+          <li><strong>Handover &amp; support</strong> — Documentation, optional team training, optional monthly retainer.</li>
+        </ol>
       </section>
 
       <section>
