@@ -882,7 +882,7 @@ class ProductsSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SectionHead(kicker: dict['products.kicker']!, title: dict['products.title']!),
+            SectionHead(kicker: dict['products.kicker']!, titleHtml: dict['products.title']!),
             const SizedBox(height: 64),
             LayoutBuilder(
               builder: (context, c) {
