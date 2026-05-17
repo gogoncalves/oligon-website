@@ -86,7 +86,7 @@ class I18n {
     'nav.cta': 'Talk to us',
 
     'products.kicker': 'Products',
-    'products.title': 'Software we <grad>sell</grad>.',
+    'products.title': 'Software we <grad>built</grad>.',
     'products.attendari.title': 'Attendari',
     'products.attendari.tag': 'AI WhatsApp SaaS',
     'products.attendari.desc': 'AI receptionist on WhatsApp 24/7 for Brazilian small businesses. Books, charges Pix deposits, replies to customers. Monthly subscription R\$ 99 – R\$ 699.',
